@@ -3,9 +3,12 @@ Script for processing Sleep Cycle data exports
 
 ## Background
 
-I wrote this script to make it easy for me to turn my Sleep Cycle data into visual sleep charts showing sleep and wake times and hours slept. 
+I wrote this script to make it easy for me to turn my [Sleep Cycle](https://www.sleepcycle.com/) app data into visual sleep charts showing sleep and wake times and hours slept. 
 
 These charts are used to diagnose and manage sleep and circadian rhythm disorders.
+
+### Example sleep chart made with this script:
+![image](https://github.com/user-attachments/assets/aa7babfd-58d1-4561-b6e0-5a39fdc7139e)
 
 ## Usage
 
@@ -20,9 +23,7 @@ This script is designed to work with this [Google Sheets template](https://docs.
 
 ### Process sleep log
 
-1. Export your Sleep Cycle data 
-
-Instructions at https://support.sleepcycle.com/hc/en-us/articles/12221835792796-I-d-like-to-export-my-data-from-Sleep-Cycle
+1. Export your Sleep Cycle data — Instructions are [here](https://support.sleepcycle.com/hc/en-us/articles/12221835792796-I-d-like-to-export-my-data-from-Sleep-Cycle)
 
 2. Place the exported data file in the files directory (or edit the file path in `bin/process-chart.php` to point to your file location).
 
@@ -41,6 +42,7 @@ php -f bin/process-chart.php
 ### Updating your sleep log
 
 1. Move or rename the old `files/sleepdata.csv` file.
+
 2. Follow the same steps above to update your chart. Sleep Cycle always exports your entire sleep log history, so you can just paste over the previous data from the top.
 
 
