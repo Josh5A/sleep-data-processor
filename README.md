@@ -8,7 +8,7 @@ I wrote this script to make it easy for me to turn my [Sleep Cycle](https://www.
 These charts are used to diagnose and manage sleep and circadian rhythm disorders.
 
 ### Example sleep chart made with this script:
-![image](https://github.com/user-attachments/assets/aa7babfd-58d1-4561-b6e0-5a39fdc7139e)
+![Example sleep chart](docs/sleep-chart-screenshot.png)
 
 ## Usage
 
