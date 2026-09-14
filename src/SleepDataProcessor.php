@@ -104,6 +104,13 @@ class SleepDataProcessor
     private $sleepHours = [];
 
     /**
+     * Extra hours a row's sessions really lasted, keyed by row index
+     * 
+     * @var array
+     */
+    private $rowDrift = [];
+
+    /**
      * Start of the chart range, in wall-seconds (an 18:00)
      * 
      * @var int
@@ -461,6 +468,7 @@ class SleepDataProcessor
     {
         foreach ($this->sessions as $session) {
             $this->processSession($session['start'], $session['end']);
+            $this->recordDrift($session);
         }
 
         $this->clampSleepHours();
@@ -493,6 +501,48 @@ class SleepDataProcessor
 
             $currentHour = $hourEnd;
         }
+    }
+
+    /**
+     * Records how much longer a session really lasted than its timestamps say
+     * 
+     * On a daylight saving night the Start and End strings are both true local
+     * wall-clock times, but the real elapsed time between them is an hour more
+     * or an hour less than subtracting one from the other suggests. Sleep
+     * Cycle's own 'Time in bed (seconds)' carries the true duration, so the
+     * difference between the two is the hour that daylight saving added or
+     * removed. On files/sleepdata.csv this is non-zero for exactly 4 of 1002
+     * sessions, always by exactly one hour, and always on a transition night.
+     * 
+     * The 24 cells stay as they are - the chart is a wall-clock grid and only
+     * has 24 columns - so the drift goes into the row total instead. The row is
+     * the one containing the session's *start*.
+     * 
+     * That attribution is wrong only for a session that both has drift and
+     * straddles the 17:00/18:00 row boundary, which needs a 10+ hour sleep
+     * running from afternoon into the next morning on one of two nights a year.
+     * Fixing it properly would mean knowing when the transition occurred, i.e.
+     * a timezone database - the exact dependency this project does without - so
+     * it is disclosed on the page rather than coded around.
+     * 
+     * @param array $session Parsed session
+     * 
+     * @return void
+     */
+    private function recordDrift(array $session): void
+    {
+        if ($session['timeInBed'] === null) {
+            return;
+        }
+
+        $drift = $session['timeInBed'] - ($session['end'] - $session['start']);
+
+        if ($drift == 0) {
+            return;
+        }
+
+        $row = intdiv($session['start'] - $this->startDate, self::SECONDS_PER_DAY);
+        $this->rowDrift[$row] = ($this->rowDrift[$row] ?? 0) + $drift / self::SECONDS_PER_HOUR;
     }
 
     /**
@@ -532,10 +582,12 @@ class SleepDataProcessor
     {
         ob_start();
 
+        $row = 0;
         for ($rowStart = $this->startDate; $rowStart < $this->endDate; $rowStart += self::SECONDS_PER_DAY) {
             $this->outputDateRange($rowStart);
-            $this->outputSleepHours($rowStart);
+            $this->outputSleepHours($rowStart, $row);
             echo PHP_EOL;
+            $row++;
         }
 
         $chart = ob_get_clean();
@@ -573,24 +625,36 @@ class SleepDataProcessor
     /**
      * Outputs the 24 hourly cells for a row, then the row total
      * 
+     * The total is the sum of the cells plus any daylight saving drift for
+     * sessions starting in this row, so on a transition night it reports real
+     * sleep time even though the columns cannot.
+     * 
+     * Whether a total is printed at all is decided by the cell sum alone, never
+     * by cell sum plus drift. A drift-only row is impossible - a session that
+     * starts in a row always fills at least one cell - while a spring-forward
+     * row carrying an hour of negative drift could in principle sum to zero,
+     * and printing 24 filled cells followed by no total reads as a bug.
+     * 
      * @param int $rowStart Start of the row, in wall-seconds (an 18:00)
+     * @param int $row      Row index, from 0
      * 
      * @return void
      */
-    private function outputSleepHours(int $rowStart): void
+    private function outputSleepHours(int $rowStart, int $row): void
     {
-        $totalHours = 0;
+        $cellHours = 0;
         $firstHour = intdiv($rowStart, self::SECONDS_PER_HOUR);
 
         for ($i = 1; $i <= 24; $i++) {
             $amount = $this->sleepHours[$firstHour + $i - 1] ?? 0;
-            $totalHours += $amount;
+            $cellHours += $amount;
 
             echo $amount ? number_format($amount, 2) : '';
             echo "\t";
         }
 
-        if ($totalHours > 0) {
+        if ($cellHours > 0) {
+            $totalHours = max(0, $cellHours + ($this->rowDrift[$row] ?? 0));
             $totalMinutes = round($totalHours * 60);
             $hours = floor($totalMinutes / 60);
             $minutes = $totalMinutes % 60;
