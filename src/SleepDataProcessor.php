@@ -213,13 +213,34 @@ class SleepDataProcessor
     /**
      * Reads CSV data from the input file
      * 
-     * @return array Array of CSV lines, with header removed
+     * Exact duplicate rows - the same Start *and* the same End string - are
+     * dropped. Sleep Cycle exports occasionally contain a session twice; left
+     * in, the duplicate would double every hour it touches once the hour map
+     * accumulates. Raw strings are compared, deliberately without normalising
+     * first: two rows are duplicates only if the export says so byte for byte.
+     * 
+     * @return array Array of CSV lines, with header removed and duplicates dropped
      */
     private function readCsvData(): array
     {
         $file = file($this->inputFile);
         array_shift($file); // Remove header
-        return $file;
+
+        $rows = [];
+        $seen = [];
+        foreach ($file as $line) {
+            $data = explode($this->csvDelimiter, $line);
+            $key = ($data[0] ?? '') . "\x00" . ($data[1] ?? '');
+
+            if (isset($seen[$key])) {
+                continue;
+            }
+
+            $seen[$key] = true;
+            $rows[] = $line;
+        }
+
+        return $rows;
     }
 
     /**
@@ -285,6 +306,36 @@ class SleepDataProcessor
 
             $this->processMultiHourSleep($startTime, $endTime);
         }
+
+        $this->clampSleepHours();
+    }
+
+    /**
+     * Clamps any accumulated hour above 1.00 back down to 1.00
+     * 
+     * A single session can contribute at most 1.00 to any one clock hour, so a
+     * sum above 1.00 means two sessions claim the same minutes. Exact duplicate
+     * rows are already dropped in readCsvData(); this is a guard for genuinely
+     * overlapping sessions, which no export seen so far contains. It must never
+     * fire on clean data, so it warns when it does.
+     * 
+     * Values at or below 1.00 are left exactly as they are. No remainder is
+     * carried into the following hour: those minutes are already accounted for
+     * by whichever session actually covers them, so carrying would double-count.
+     * 
+     * @return void
+     */
+    private function clampSleepHours(): void
+    {
+        foreach ($this->sleepHours as $key => $amount) {
+            if ($amount > 1.0) {
+                trigger_error(
+                    sprintf('Overlapping sessions: hour %s accumulated %.4f, clamped to 1.00', $key, $amount),
+                    E_USER_WARNING
+                );
+                $this->sleepHours[$key] = 1.0;
+            }
+        }
     }
 
     /**
@@ -310,7 +361,8 @@ class SleepDataProcessor
             $sleepMinutes = ($sleepEnd->getTimestamp() - $sleepStart->getTimestamp()) / 60;
             $sleepFraction = $sleepMinutes / 60;
 
-            $this->sleepHours[$currentHour->getTimestamp()] = $sleepFraction;
+            $timestamp = $currentHour->getTimestamp();
+            $this->sleepHours[$timestamp] = ($this->sleepHours[$timestamp] ?? 0) + $sleepFraction;
 
             $currentHour = $hourEnd;
         }
