@@ -2,9 +2,9 @@
 
 require_once(__DIR__.'/../src/SleepDataProcessor.php');
 
-// Set file paths
-$inputFile = __DIR__.'/../files/sleepdata.csv';
-$outputFile = __DIR__.'/../files/sleep_chart_output.tdv';
+// Set file paths (optional argv overrides, defaults unchanged)
+$inputFile = $argv[1] ?? __DIR__.'/../files/sleepdata.csv';
+$outputFile = $argv[2] ?? __DIR__.'/../files/sleep_chart_output.tdv';
 
 // Run the processor
 $processor = new SleepDataProcessor($inputFile, $outputFile);

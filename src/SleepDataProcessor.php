@@ -92,10 +92,10 @@ class SleepDataProcessor
      * @param string $dateFormat    Date format for parsing (optional)
      */
     public function __construct(
-        string $inputFile = null,
-        string $outputFile = null,
-        string $csvDelimiter = null,
-        string $dateFormat = null
+        ?string $inputFile = null,
+        ?string $outputFile = null,
+        ?string $csvDelimiter = null,
+        ?string $dateFormat = null
     ) {
         if ($inputFile !== null) {
             $this->inputFile = $inputFile;
@@ -282,35 +282,9 @@ class SleepDataProcessor
             $data = explode($this->csvDelimiter, $line);
             $startTime = DateTime::createFromFormat($this->dateFormat, $data[0]);
             $endTime = DateTime::createFromFormat($this->dateFormat, $data[1]);
-            
-            $interval = date_diff($startTime, $endTime);
-            
-            // if interval is less than an hour AND the days are the same, then record the percentage of the minutes
-            if ($interval->format('%H') == 0 && $startTime->format('d') == $endTime->format('d')) {
-                $this->processSingleHourSleep($startTime, $interval);
 
-            // otherwise, go hour by hour
-            } else {
-                $this->processMultiHourSleep($startTime, $endTime);
-            }
+            $this->processMultiHourSleep($startTime, $endTime);
         }
-    }
-
-    /**
-     * Processes a sleep entry that occurs within a single hour
-     * 
-     * @param DateTime     $startTime Start time of sleep
-     * @param DateInterval $interval  Duration of sleep
-     * 
-     * @return void
-     */
-    private function processSingleHourSleep(DateTime $startTime, DateInterval $interval): void
-    {
-        $chartHour = $startTime->format('m/d/y H') . ':00';
-        $chartStamp = strtotime($chartHour);
-        $minutes = $interval->format('%I');
-        $percentage = round($minutes / 60, 2);
-        $this->sleepHours[$chartStamp] = $percentage;
     }
 
     /**
