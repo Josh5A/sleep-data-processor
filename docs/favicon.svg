@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Chart My Sleep">
+  <!-- The mark is the crescent alone: the full lockup's three bars (DESIGN.md §7)
+       collapse to a smudge at 16px, and §7 says the favicon size is the real test.
+       Taken 2026-09-16 (L11) — rendered at 16, 32 and 64px, and at 16px against a
+       dark browser chrome. The crescent still reads as a crescent at 16, and the
+       #faf9f5 tile keeps it legible on a dark bar. Settled, not provisional. -->
+  <rect width="32" height="32" rx="7" fill="#faf9f5"/>
+  <mask id="crescent">
+    <rect width="32" height="32" fill="#fff"/>
+    <circle cx="24" cy="12" r="10.5" fill="#000"/>
+  </mask>
+  <circle cx="16" cy="16" r="11" fill="#2b5f9e" mask="url(#crescent)"/>
+</svg>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Chart My Sleep — a free sleep chart maker</title>
+<meta name="description" content="Paste your Sleep Cycle export and get a chart of your real sleep pattern: one row per night, one column per hour. Free, nothing to install, and this server never sees your sleep data.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chart My Sleep — a free sleep chart maker">
+<meta property="og:description" content="Paste your sleep data export, get a chart of your real sleep pattern. One row per night, one column per hour.">
+<meta property="og:url" content="https://josh5a.github.io/sleep-data-processor/">
+<meta property="og:image" content="https://josh5a.github.io/sleep-data-processor/images/og-chart.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Layout and copy: dev/design/Homepage.dc.html. The figure is the annotated
+     one from last-20-plan L5, not the bare screenshot the artboard slotted:
+     L6 puts it beside the why-care block, because a stranger who has never seen
+     a sleep chart cannot read the bare grid. Two files, not one scaled image —
+     the phone variant drops the cell values rather than shrinking them. -->
+
+<div class="page">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="shell shell--home">
+
+    <main id="main" tabindex="-1">
+
+      <header class="hero">
+        <!-- Masthead. Not a link: this is the page it would point at. -->
+        <div class="masthead--home">
+          <span class="mark mark--lg" aria-hidden="true">
+            <span class="mark__moon"></span>
+            <span class="mark__bars"><span></span><span></span><span></span></span>
+          </span>
+          <span class="wordmark wordmark--lg">Chart My Sleep</span>
+        </div>
+
+        <div class="hero__block">
+          <h1>A free sleep chart maker</h1>
+          <p class="lede lede--prose">Paste your sleep data export, get a chart of your real sleep
+          pattern.</p>
+          <p class="hero__meta">Nothing to install. This server never sees your sleep data.</p>
+        </div>
+      </header>
+
+      <section class="sec why">
+        <div class="why__col">
+          <h2 class="display">See how you actually sleep before you try to fix it.</h2>
+          <p class="why__label">Two reasons:</p>
+          <ol class="why__list">
+            <li>
+              <span class="why__n" aria-hidden="true">1.</span>
+              <span>Your sense of how you&rsquo;ve been sleeping is an impression. This is the
+              record.</span>
+            </li>
+            <li>
+              <span class="why__n" aria-hidden="true">2.</span>
+              <span>You can&rsquo;t tell whether a change helped without knowing what came before.
+              This is the before.</span>
+            </li>
+          </ol>
+          <p class="pull">You stop guessing at your sleep and start steering it.</p>
+        </div>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="images/sleep-chart-screenshot.png" width="1833" height="1071"
+              alt="A Google Sheets grid. One row per night from 11/06/23 onward, one column per hour from 6pm through 5pm, green cells marking the hours asleep, and each night's total in the last column.">
+          </div>
+          <figcaption>One row per night, one column per hour. This is what you get back.</figcaption>
+        </figure>
+      </section>
+
+      <!-- L5/L6. The annotated figure is the argument, not the texture above it,
+           and it is unreadable at the ~390px the two-column block gives a figure —
+           so it gets the full column. Two files, not one scaled image: the phone
+           variant drops the cell values rather than shrinking them, which is why
+           the swap is a <picture> and not a width. -->
+      <section class="sec stack">
+        <h2 class="display">How to read it</h2>
+        <figure class="figure figure--wide">
+          <div class="figure__frame">
+            <picture>
+              <source media="(min-width: 640px)" srcset="images/chart-annotated.png" width="1961" height="1315">
+              <img src="images/chart-annotated-narrow.png" width="750" height="736"
+                alt="The same twenty-one nights, annotated. One row per night, one column per hour of the clock from 6pm through 5pm the next day; green marks the hours in bed and the last column holds the night's total. A teal line traces the hour sleep began: it swings between about 10pm and 3am rather than drifting steadily. In the first week one night in seven began after midnight; across the next two weeks, ten of fourteen did.">
+            </picture>
+          </div>
+          <figcaption>Twenty-one nights of one person&rsquo;s real export. The pattern is the point:
+          not how much sleep, but when &mdash; and how steady that is.</figcaption>
+        </figure>
+      </section>
+
+      <section class="sec stack">
+        <h2 class="display">Four easy steps</h2>
+
+        <ol class="flow">
+          <li>
+            <span class="step-title">Track your sleep</span>
+            <span class="step-note">with Sleep Cycle</span>
+          </li>
+          <li>
+            <span class="step-title">Export your data</span>
+            <span class="step-note">buried in settings</span>
+            <a class="tap step-link" href="export/">How to export from Sleep Cycle &rarr;</a>
+          </li>
+          <li aria-current="step">
+            <span class="step-title">Format it here</span>
+            <span class="step-note">two clicks, in your browser</span>
+          </li>
+          <li>
+            <span class="step-title">Paste into the template</span>
+            <span class="step-note">Google Sheets draws the chart</span>
+          </li>
+        </ol>
+
+        <div class="flow-notes">
+          <div class="flow-note flow-note--a">
+            <span class="eyebrow">First time only</span>
+            <span>Not tracking yet? Start tonight, come back in a week.</span>
+          </div>
+          <!-- Caption above link, not below: it lets the link's hit area extend
+               downward into the section gap instead of over the caption. -->
+          <div class="flow-note flow-note--b">
+            <span class="eyebrow">First time only</span>
+            <span>Opens in a new tab, in your own Google account.</span>
+            <a class="tap" href="https://docs.google.com/spreadsheets/d/1bae1Rd7Ow1-quu7ddtPsrhsauH6KFFqn4suwRdhfGoM/copy"
+              target="_blank" rel="noreferrer">Make your own copy of the template &rarr;</a>
+          </div>
+        </div>
+
+        <p class="subtitle">The first-time bits you do once. After that it&rsquo;s export, paste,
+        paste &mdash; about two minutes, any time you want an updated chart.</p>
+      </section>
+
+      <section class="cta">
+        <h2 class="display">Ready? It takes two minutes.</h2>
+        <a class="btn-link" href="chart/">Format my sleep data<span aria-hidden="true">&rarr;</span></a>
+      </section>
+
+    </main>
+
+    <footer>
+      <a class="tap" href="export/">Exporting from Sleep Cycle</a>
+      <a class="tap" href="notes/">About the numbers</a>
+      <a class="tap" href="privacy/">Privacy</a>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

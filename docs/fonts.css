@@ -1,0 +1,85 @@
+/* Chart My Sleep — self-hosted webfaces.
+ *
+ * DESIGN.md §4 specifies Vollkorn for the logotype and Manrope for UI and body.
+ * js-build-plan.md B5.2 forbids external dependencies, which rules out the
+ * Google Fonts CDN the artboards link — so the two faces are subset and served
+ * from this repo instead. Nothing here reaches the network at runtime.
+ *
+ * Built by dev/build-fonts.sh from the upstream variable fonts in google/fonts.
+ * Both are SIL Open Font License 1.1; the licences ship beside the files in
+ * docs/fonts/ because the OFL requires them to travel with the fonts.
+ *
+ * Subset to exactly what this site can render — ASCII, Latin-1, the curly quotes
+ * and dashes the copy uses, and the arrows and middot the UI draws. That last
+ * part is why these are built rather than taken from Google's prebuilt "latin"
+ * slice: that slice has no U+2192, and → is on nearly every page here.
+ *
+ * URLs below are relative to THIS file (docs/), not to the page linking it, so
+ * one stylesheet serves pages at any depth.
+ */
+
+/* One axis-limited variable file covers 400, 500 and 600 — smaller than three
+   static instances, and the axis is clamped to the range the site uses. */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('./fonts/manrope-var.woff2') format('woff2');
+}
+
+/* The logotype is one weight at two sizes. Pinned to a static 400. */
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/vollkorn-400.woff2') format('woff2');
+}
+
+/* ---- Metric-matched fallbacks ------------------------------------------------
+ * DESIGN.md §4 requires these: without them the wordmark visibly reflows the
+ * moment Vollkorn replaces Georgia, and `font-display: swap` guarantees that
+ * moment happens on a cold load.
+ *
+ * Each face below is the local font the stack would otherwise reach, bent to the
+ * metrics of the webfont it stands in for. Values are computed from the real
+ * files — `bash dev/build-fonts.sh` prints them — never estimated.
+ *
+ * size-adjust is matched on ADVANCE WIDTH, not on x-height. x-height matching is
+ * the more common recipe and it loses here, measured in a browser over the site's
+ * own copy, because every element is sized by its content and every line-height is
+ * a fixed ratio: what a visitor sees when the real face arrives is horizontal
+ * reflow, so that is what the fallback should null out.
+ *
+ *   wordmark, 27px          body copy, 27px
+ *   width-matched   +0.1%   width-matched   +0.0%   <- shipped
+ *   x-height        -3.6%   x-height        +1.6%
+ *   plain Georgia   +1.3%   plain Arial     -2.4%
+ *   plain serif     -5.2%
+ *
+ * (Measuring this needs `document.fonts.load()` first. Awaiting `document.fonts.ready`
+ * alone measures the fallback and reports it as the webfont — the faces load on first
+ * use, and a probe element that sets font-family and reads its width in the same frame
+ * has not used them yet. An earlier run of this table was wrong for exactly that reason.)
+ */
+
+/* Vollkorn 400 standing in: Georgia */
+@font-face {
+  font-family: 'Vollkorn Fallback';
+  src: local('Georgia'), local('Times New Roman'), local('Liberation Serif');
+  size-adjust: 98.79%;
+  ascent-override: 96.36%;
+  descent-override: 44.64%;
+  line-gap-override: 0%;
+}
+
+/* Manrope 400-600 standing in: Arial */
+@font-face {
+  font-family: 'Manrope Fallback';
+  src: local('Arial'), local('Helvetica'), local('Liberation Sans');
+  size-adjust: 102.55%;
+  ascent-override: 103.95%;
+  descent-override: 29.25%;
+  line-gap-override: 0%;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Privacy — Chart My Sleep</title>
+<meta name="description" content="What this server sees, what it never sees, and why the Google Sheets copy is your own document. No accounts, no cookies, no analytics.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy — Chart My Sleep">
+<meta property="og:description" content="What this server sees, what it never sees, and why the Google Sheets copy is your own document.">
+<meta property="og:url" content="https://josh5a.github.io/sleep-data-processor/privacy/">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="../fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="../fonts.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- Copy: dev/privacy-policy.md, which is final and carries the standing
+     condition — if analytics, an embed, a CDN or any other third-party request
+     is ever added, this page gains a paragraph naming it, the "Loading a page
+     contacts nothing else" sentence goes, and the list below is corrected.
+     Layout: dev/design/Privacy.dc.html. The artboard's contact section is not
+     built: the final copy has no email address in it. -->
+
+<div class="page">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="shell shell--tool">
+
+    <nav class="masthead" aria-label="Site">
+      <a class="lockup" href="../">
+        <span class="mark" aria-hidden="true">
+          <span class="mark__moon"></span>
+          <span class="mark__bars"><span></span><span></span><span></span></span>
+        </span>
+        <span class="wordmark">Chart My Sleep</span>
+      </a>
+      <a class="tap masthead__aside" href="../chart/">Back to the tool &rarr;</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+
+      <header class="page-head">
+        <h1>Privacy</h1>
+        <p class="lede lede--prose">What this server sees, what it never sees, and who owns the spreadsheet.</p>
+        <p class="stamp">Last updated September 15, 2026</p>
+      </header>
+
+      <section class="sec prose">
+        <h2>What this server sees</h2>
+        <p>The site is hosted on GitHub Pages. When your browser requests a page, GitHub logs the
+        IP address the request came from and stores it for security purposes. This happens for
+        every visitor, signed in to GitHub or not. Those logs are GitHub&rsquo;s, held under the
+        <a class="tap" href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" rel="noreferrer">GitHub Privacy Statement</a>;
+        GitHub does not pass them on to whoever runs a Pages site, so no one here sees them.</p>
+        <p>Nothing else is collected. There is no account and no sign-in. No cookies are set.
+        There are no analytics.</p>
+      </section>
+
+      <section class="sec prose">
+        <h2>What it doesn&rsquo;t see</h2>
+        <p>This server never sees:</p>
+        <ul class="dash-list">
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span><strong>Your sleep data.</strong> The file you choose, or drop, or paste is read
+            by your own browser and converted there. It is never sent anywhere.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span><strong>The rows the tool produces.</strong> They exist in the page in front of
+            you until you close the tab.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span><strong>Anything you do afterwards.</strong> Once you copy the rows, pasting them
+            into Google Sheets is between you and Google.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="sec prose">
+        <h2>The Sheet is yours</h2>
+        <p>The template link makes a copy of a spreadsheet in your own Google account. It is your
+        document. Nobody here can open it, and nobody here is told that you made it.</p>
+        <p>If you would rather not involve Google at all, the rows are ordinary tab-separated text.
+        You can paste them into any spreadsheet you choose.</p>
+      </section>
+
+    </main>
+
+    <footer>
+      <a class="tap" href="../export/">Exporting from Sleep Cycle</a>
+      <a class="tap" href="../notes/">About the numbers</a>
+      <span aria-current="page">Privacy</span>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

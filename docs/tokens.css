@@ -1,0 +1,182 @@
+/* Hallmark · genre: editorial · design-system: DESIGN.md · designed-as-app
+ * Chart My Sleep — token layer. Single source of truth for both artboards.
+ * Every colour, size, space and radius used on / and /chart is named here.
+ * Pages reference tokens by name; no page may inline a raw value.
+ * pre-emit critique: P5 H5 E4 S5 R5 V4
+ */
+
+:root {
+  /* ---- Paper ------------------------------------------------------------
+     DESIGN.md §3: two background tones per page, maximum. Canvas + surface.
+     Warm and sand are small accents, never backgrounds. */
+  --color-canvas:             #faf9f5;
+  --color-surface:            #fffefb;
+  --color-surface-warm:       #f6f2ea;
+  --color-surface-sand:       #f2ece2;
+
+  /* ---- Ink, descending emphasis ----------------------------------------
+     --color-ink-muted is the contrast floor for text. Nothing lighter
+     may carry copy. See --color-ink-faint below. */
+  --color-ink:                #1a1917;
+  --color-ink-body:           #3f3e39;
+  --color-ink-sub:            #5c5a53;
+  --color-ink-muted:          #6c6a64;
+
+  /* Decorative only — 3.23:1 on canvas, fails WCAG AA at every text size
+     on this page. No current use site. Do not reach for it for copy. */
+  --color-ink-faint:          #8e8b82;
+
+  /* ---- Rules and borders ---------------------------------------------- */
+  --color-rule:               #ebe6df;
+  --color-border:             #e8e2d8;
+  --color-border-input:       #e4ded4;
+  --color-border-strong:      #ddd5c8;
+  --color-border-dashed:      #d8d0c2;
+  --color-arrow:              #bdb8ad;
+
+  /* ---- Action ----------------------------------------------------------
+     DECIDED 2026-09-15 (DESIGN.md §3, dev/last-20-plan.md L14): the action
+     teal and the brand blue/green do not share a root, and that is the point —
+     interactive is its own channel. Kept over brand blue because AUDIT.md's
+     eight measured contrast pairs assume #1f6f6b. Every use site reads
+     var(--color-action), so the decision is still one edit to this block plus
+     four derived tints if it is ever revisited. */
+  --color-action:             #1f6f6b;
+  --color-action-hover:       #17544f;
+  --color-action-tint:        #f1f7f6;
+  --color-action-tint-border: #b7d5d0;
+  --color-action-tint-ink:    #3d6a67;
+  --color-on-action:          #ffffff;
+
+  /* ---- Brand — the mark and its eyebrow only.
+     Never means "clickable". DESIGN.md §3. */
+  --color-brand-moon:         #2b5f9e;
+  --color-brand-bars:         #4eb282;
+
+  /* ---- Status ---------------------------------------------------------- */
+  --color-error-bg:           #fbf0ee;
+  --color-error-border:       #eed9d4;
+  --color-error-ink:          #99392f;
+  --color-error-ink-2:        #8a5850;
+  --color-success-tint:       #e7f0ee;
+
+  /* ---- Disabled — one recipe, DESIGN.md §6 ----------------------------- */
+  --color-disabled-bg:        #f5f0e8;
+  --color-disabled-ink:       #a09d96;
+  --color-disabled-border:    #eae3d8;
+
+  /* ---- Selection and focus --------------------------------------------- */
+  --color-selection:          #cfe4e1;
+
+  /* Data-box focus. Two layers: a canvas-coloured gap, then a solid 2px ring in
+     the action colour — visually the same treatment as the `outline: 2px` +
+     `outline-offset: 2px` that every link and button gets, but drawn with a
+     box-shadow so it follows the 12px radius and costs no layout shift.
+     The previous 12%-alpha ring measured under 1.3:1 against canvas, which left
+     a 1px border colour change carrying the whole indicator on the two controls
+     the tool page exists for. DESIGN.md §6. */
+  --focus-ring:               0 0 0 2px var(--color-canvas), 0 0 0 4px var(--color-action);
+
+  /* ---- Type roles ------------------------------------------------------
+     One stack per role. A role never varies its fallbacks between pages —
+     that is what put two unrelated serifs on one page before. */
+  --font-logotype: "Vollkorn", "Vollkorn Fallback", Georgia, serif;
+  --font-display:  Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-ui:       "Manrope", "Manrope Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  /* The two "… Fallback" entries are not extra typefaces: each is the local font
+     the stack would reach anyway, bent to the webfont's metrics in fonts.css, so
+     nothing reflows when the real face swaps in. DESIGN.md §4. --font-display is
+     Georgia by choice rather than by fallback, so it needs no such entry. */
+  --font-data:     ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ---- Type scale ------------------------------------------------------
+     The wordmark is the largest type on every page — larger than the h1
+     beneath it. DESIGN.md §4. --text-logotype clamps so that rule still
+     holds at 320px, where a fixed 46px overflows the column. */
+  --text-logotype:    clamp(30px, 9vw, 46px);
+  --text-logotype-sm: clamp(22px, 6.5vw, 27px);
+  --text-h1:          38px;
+  --text-h1-sm:       32px;
+  --text-h2:          28px;
+  --text-h2-ui:       17px;
+  --text-lede:        19px;
+  --text-body:        16px;
+  --text-ui:          15px;
+  /* --text-sm is the floor for a sentence. --text-xs and below are for labels,
+     counts and captions only. The ink ladder lost its floor the same way before
+     --color-ink-faint was retired: a tier scoped to "meta only" drifts onto
+     copy unless the rule names what the tier is NOT for. */
+  --text-sm:          14px;
+  --text-xs:          13px;
+  --text-2xs:         12px;
+  --text-eyebrow:     11px;
+  --text-data-in:     13px;
+  --text-data-out:    12.5px;
+
+  /* ---- Tracking -------------------------------------------------------- */
+  --track-logotype:  -0.8px;
+  --track-h1:        -0.6px;
+  --track-h2:        -0.5px;
+  --track-tight:     -0.4px;
+  --track-ui:        -0.1px;
+  --track-eyebrow:    1.1px;
+
+  /* ---- Leading --------------------------------------------------------- */
+  --leading-body:    1.55;
+  --leading-display: 1.18;
+  --leading-tight:   1.1;
+  --leading-data:    1.6;
+  --leading-data-out:1.7;
+
+  /* ---- Space — 4pt scale ----------------------------------------------
+     Mark geometry (the 7/5/3.5px lockup proportions) is NOT on this scale
+     and is exempt by design: those are figure proportions of the logo, and
+     snapping them would distort the mark. They live in DESIGN.md §7 and
+     move to the SVG at port time. */
+  --space-3xs:  4px;
+  --space-2xs:  8px;
+  --space-xs:  12px;
+  --space-sm:  16px;
+  --space-ms:  20px;
+  --space-md:  24px;
+  --space-lg:  40px;
+  --space-xl:  44px;
+  --space-2xl: 60px;
+  --space-3xl: 88px;
+  --space-gutter: 24px;
+
+  /* ---- Measure --------------------------------------------------------- */
+  --measure-lede:  40ch;
+  --measure-mid:   62ch;
+  --measure-wide:  66ch;
+  --measure-prose: 72ch;
+  --column-home:  820px;
+  --column-tool:  760px;
+
+  /* ---- Radii ----------------------------------------------------------- */
+  --radius-pill:   999px;
+  --radius-card:    12px;
+  --radius-button:   8px;
+  --radius-image:    6px;
+  --radius-bar:      2px;
+
+  /* ---- Breakpoint ------------------------------------------------------
+     One breakpoint. Below it the two multi-column grids on / collapse to a
+     single column and the step arrows drop. DESIGN.md §5. */
+  --bp-stack: 700px;
+}
+
+/* ---- Breakpoint overrides ----------------------------------------------
+   iOS Safari zooms the page when a focused form control renders below 16px,
+   and does not zoom back out — so a user pasting their export on a phone
+   ends up scaled and scrolled sideways. The data tokens are the only ones
+   that land inside a form control, so they are the only ones raised.
+   Kept in step with --bp-stack above; custom properties can't be read inside
+   a media query, so the value is repeated by hand. */
+@media (max-width: 700px) {
+  :root {
+    --text-data-in:  16px;
+    --text-data-out: 16px;
+  }
+}

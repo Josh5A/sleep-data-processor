@@ -1,0 +1,697 @@
+/* Chart My Sleep — site stylesheet.
+ *
+ * Ported from the design artboards in dev/design/. Those keep every value in a
+ * style attribute so the canvas editor can reach it; a built page has no such
+ * constraint, so the same values live here as classes. tokens.css stays the
+ * single source of truth: no raw colour, size, space or radius may appear
+ * below, only var(--token). DESIGN.md is authoritative for all of it.
+ */
+
+/* ---- Page frame ---------------------------------------------------------- */
+
+html, body { overflow-x: clip; }
+
+/* The UA's [hidden] rule is display:none at the same specificity as a class, and
+   author styles win — so every `display:` below would quietly un-hide an element
+   the script hid. Stated once, here, rather than remembered at each use site. */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink-body);
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+.page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: var(--space-lg) var(--space-gutter) var(--space-3xl);
+  display: flex;
+  justify-content: center;
+}
+
+.shell {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell--tool { max-width: var(--column-tool); gap: var(--space-xl); }
+.shell--home { max-width: var(--column-home); gap: var(--space-2xl); }
+
+main { display: flex; flex-direction: column; }
+.shell--tool main { gap: var(--space-xl); }
+.shell--home main { gap: var(--space-2xl); }
+main:focus { outline: none; }
+
+/* break-word, not anywhere: `anywhere` permits a break mid-word even when the
+   line could break at a space. No `hyphens: auto` — it hyphenates headings. */
+h1, h2, h3 { overflow-wrap: break-word; min-width: 0; }
+
+/* ---- Links, focus, selection --------------------------------------------- */
+
+a { color: var(--color-action); }
+a:hover { color: var(--color-action-hover); }
+textarea { font-family: inherit; }
+::selection { background: var(--color-selection); }
+
+/* Never animated: the ring has to appear the instant focus lands. No radius
+   here — an outline already follows the element's own. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+summary::marker { color: var(--color-ink-muted); }
+
+/* Hit-area extension for inline links, per the 44x44 floor. */
+.tap { position: relative; }
+.tap::before { content: ""; position: absolute; inset-block: -12px; inset-inline: -8px; }
+
+.skip { position: absolute; left: -9999px; top: 0; }
+.skip:focus {
+  left: var(--space-md);
+  top: var(--space-md);
+  z-index: 10;
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--color-action);
+  color: var(--color-on-action);
+  border-radius: var(--radius-button);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- The mark ------------------------------------------------------------
+   Lockup geometry is exempt from the 4pt scale (DESIGN.md §5): these are
+   proportions of the logo, not layout spacing. */
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: var(--color-ink);
+  min-width: 0;
+}
+.mark { display: flex; align-items: center; gap: 5px; flex: none; }
+.mark__moon {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  box-shadow: inset -4.5px -1.1px 0 0 var(--color-brand-moon);
+}
+.mark__bars { display: flex; flex-direction: column; gap: 2.5px; }
+.mark__bars span {
+  display: block;
+  height: 2.5px;
+  border-radius: var(--radius-bar);
+  background: var(--color-brand-bars);
+}
+.mark__bars span:nth-child(1) { width: 15px; }
+.mark__bars span:nth-child(2) { width: 9px; }
+.mark__bars span:nth-child(3) { width: 12px; }
+
+.wordmark {
+  font-family: var(--font-logotype);
+  font-size: var(--text-logotype-sm);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--track-tight);
+  min-width: 0;
+}
+
+.masthead__aside { font-size: var(--text-sm); text-decoration: none; white-space: nowrap; }
+
+/* ---- Headings ------------------------------------------------------------ */
+
+.page-head { display: flex; flex-direction: column; gap: var(--space-xs); }
+
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-h1);
+  line-height: 1.14;
+  letter-spacing: var(--track-h1);
+  color: var(--color-ink);
+}
+
+.lede {
+  margin: 0;
+  max-width: var(--measure-mid);
+  font-size: var(--text-h2-ui);
+  color: var(--color-ink-sub);
+}
+
+.section-title {
+  margin: 0;
+  font-size: var(--text-h2-ui);
+  font-weight: 600;
+  color: var(--color-ink);
+  letter-spacing: var(--track-ui);
+}
+
+/* ---- Position strip ------------------------------------------------------
+   An ordered list inside a labelled nav, so "3 of 4" is structural rather than
+   a styling coincidence — the arrows are ::after on the items, never spans an
+   assistive technology has to be told to ignore. DESIGN.md §5. */
+
+.steps ol {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--text-xs);
+}
+.steps li { display: flex; align-items: center; gap: var(--space-2xs); }
+.steps li:not(:last-child)::after { content: "\2192"; color: var(--color-arrow); }
+
+.pill {
+  position: relative;
+  padding: 7px var(--space-xs);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-sand);
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+/* Vertical only: the 8px gap between pills is already the minimum spacing
+   between adjacent targets, so there is nothing to spend sideways. */
+.pill::before { content: ""; position: absolute; inset-block: -5px; inset-inline: 0; }
+.pill[aria-current="step"] {
+  background: var(--color-action);
+  color: var(--color-on-action);
+  font-weight: 500;
+}
+/* Hover is the only signal separating a pill that navigates from one that
+   doesn't, so it belongs on the anchor selector, not on every pill.
+   #eae3d8 is also --color-disabled-border: one value, two roles (DESIGN.md §6). */
+a.pill:hover { background: var(--color-disabled-border); color: var(--color-ink); }
+a.pill:active { transform: translateY(1px); }
+
+/* ---- Data boxes ---------------------------------------------------------- */
+
+.io { display: flex; flex-direction: column; gap: var(--space-sm); }
+.io--out { gap: var(--space-xs); }
+
+.io__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.databox {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: var(--space-sm) var(--space-ms);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-card);
+  color: var(--color-ink);
+  font-family: var(--font-data);
+  outline: none;
+}
+.databox:focus {
+  border-color: var(--color-action);
+  box-shadow: var(--focus-ring);
+}
+
+#input {
+  min-height: 168px;
+  font-size: var(--text-data-in);
+  line-height: var(--leading-data);
+}
+/* The input textarea *is* the drop zone; no separate dashed box. DESIGN.md §6. */
+#input.is-dragging {
+  background: var(--color-action-tint);
+  border-style: dashed;
+  border-color: var(--color-action);
+}
+
+#output {
+  height: 210px;
+  font-size: var(--text-data-out);
+  line-height: var(--leading-data-out);
+  white-space: pre;
+  overflow: auto;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+.row--wide { gap: var(--space-sm); }
+
+.meta { font-size: var(--text-sm); color: var(--color-ink-muted); }
+.status { min-height: 1lh; font-size: var(--text-xs); color: var(--color-ink-muted); }
+
+.hint {
+  margin: 0;
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: baseline;
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+.hint__dot { color: var(--color-action); }
+
+.demo-link {
+  align-self: flex-start;
+  font-size: var(--text-xs);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  color: var(--color-action);
+  cursor: pointer;
+}
+.demo-link:hover { color: var(--color-action-hover); text-decoration: underline; }
+
+/* ---- Buttons — one disabled recipe for every button on the site (§6) ------ */
+
+.btn {
+  height: 44px;              /* 44, not 42: the touch-target floor. */
+  padding: 0 22px;
+  border: 1px solid var(--color-action);
+  border-radius: var(--radius-button);
+  background: var(--color-action);
+  color: var(--color-on-action);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+.btn:hover { background: var(--color-action-hover); border-color: var(--color-action-hover); }
+.btn:active { transform: translateY(1px); }
+
+.btn--secondary {
+  height: 44px;
+  padding: 0 var(--space-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-border-strong);
+}
+.btn--secondary:hover { background: var(--color-surface); border-color: var(--color-action); }
+
+.btn[disabled],
+.btn--secondary[disabled] {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-ink);
+  border: 1px solid var(--color-disabled-border);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--copied {
+  background: var(--color-success-tint);
+  color: var(--color-action-hover);
+  border-color: var(--color-action-tint-border);
+}
+
+/* ---- Error block --------------------------------------------------------- */
+
+.error {
+  padding: var(--space-sm) var(--space-ms);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+.error__msg { font-size: var(--text-sm); font-weight: 600; color: var(--color-error-ink); }
+.error__fix { font-size: var(--text-sm); color: var(--color-error-ink-2); }
+.error__link {
+  font-size: var(--text-sm);
+  color: var(--color-error-ink-2);
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+/* ---- Notes / caveats ----------------------------------------------------- */
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xs) var(--space-ms);
+  background: var(--color-surface-warm);
+  border-radius: var(--radius-card);
+}
+.notes > .section-title { padding-bottom: var(--space-2xs); }
+.notes > details + details,
+.notes > a { border-top: 1px solid var(--color-border); }
+.notes summary {
+  cursor: pointer;
+  padding: var(--space-xs) 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.notes details p {
+  margin: 0 0 var(--space-xs);
+  max-width: var(--measure-prose);
+  font-size: var(--text-sm);
+  color: var(--color-ink-sub);
+}
+.notes > a { padding: var(--space-xs) 0; font-size: var(--text-sm); text-decoration: none; }
+
+/* ---- Template handoff ---------------------------------------------------- */
+
+.handoff {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  border-top: 1px solid var(--color-rule);
+  padding-top: var(--space-md);
+}
+.handoff__list {
+  margin: 0;
+  padding-left: var(--space-ms);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  max-width: var(--measure-prose);
+  font-size: var(--text-sm);
+  color: var(--color-ink-sub);
+}
+.handoff__cta { font-size: var(--text-ui); font-weight: 500; text-decoration: none; }
+
+/* ---- Footer -------------------------------------------------------------- */
+
+footer {
+  border-top: 1px solid var(--color-rule);
+  padding-top: var(--space-md);
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+}
+footer a { text-decoration: none; white-space: nowrap; }
+
+/* The current page in the footer is a span, not a link: it would point at
+   itself. It still needs the colour, since it sits next to three links. */
+footer [aria-current="page"] { white-space: nowrap; color: var(--color-ink-sub); }
+
+/* ---- Prose pages ---------------------------------------------------------
+   /notes, /privacy, /export and /howtoread are one column of prose (DESIGN.md
+   §9): Georgia h1 and h2, Manrope body at the wide measure, no cards. Severity
+   and sequence are carried by ORDER, never by colour. Ported from
+   Notes.dc.html and Privacy.dc.html, which state the same values inline. */
+
+/* The prose lede is the editorial one — larger, darker, at the lede measure.
+   /chart's .lede is a UI subtitle and deliberately differs. */
+.lede--prose {
+  max-width: var(--measure-lede);
+  font-size: var(--text-lede);
+  line-height: 1.5;
+  color: var(--color-ink-body);
+}
+
+.stamp { margin: 0; font-size: var(--text-xs); color: var(--color-ink-muted); }
+
+/* Section rhythm: every section after the header opens with the rule. */
+.sec { border-top: 1px solid var(--color-rule); padding-top: var(--space-lg); }
+
+.prose { display: flex; flex-direction: column; gap: var(--space-sm); }
+.prose p { margin: 0; max-width: var(--measure-wide); }
+
+.prose h2,
+h2.display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-h2);
+  line-height: 1.2;
+  letter-spacing: var(--track-h2);
+  color: var(--color-ink);
+}
+
+/* Manrope labels a block; Georgia does the talking. Used for the "why it's
+   drawn this way" subheads inside a caveat. */
+.subhead {
+  margin: 0;
+  font-size: var(--text-ui);
+  font-weight: 600;
+  letter-spacing: var(--track-ui);
+  color: var(--color-ink);
+}
+
+/* Em-dash markers in the action hue — the only ornament on a prose page. */
+.dash-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-xs);
+  max-width: var(--measure-wide);
+}
+.dash-list > li {
+  display: grid;
+  grid-template-columns: var(--space-sm) minmax(0, 1fr);
+  gap: var(--space-xs);
+  align-items: baseline;
+}
+.dash-list__mark { color: var(--color-action); }
+
+/* Note block (DESIGN.md §6): the one place a prose page changes tone. */
+.note {
+  background: var(--color-surface-warm);
+  border-radius: var(--radius-card);
+  padding: var(--space-xs) var(--space-ms);
+  max-width: var(--measure-wide);
+  font-size: var(--text-sm);
+  color: var(--color-ink-sub);
+}
+
+/* A second line under the lede, setting the reading order of the sections
+   below. Smaller and quieter than the lede so the header still has one voice. */
+.subtitle { margin: 0; max-width: var(--measure-wide); font-size: var(--text-ui); color: var(--color-ink-muted); }
+
+/* A value quoted out of the tool's own output, inside prose. */
+.data-inline { font-family: var(--font-data); font-size: var(--text-data-in); }
+
+.dash-list strong { font-weight: 600; color: var(--color-ink); }
+
+/* A link that closes a prose section, at UI size rather than body size. */
+.prose .more { font-size: var(--text-ui); }
+.prose .more a { text-decoration: none; }
+
+/* ---- Homepage ------------------------------------------------------------
+   Ported from Homepage.dc.html. The home column is wider than the tool column
+   (--column-home) and the masthead is the large lockup rather than a link:
+   this is the page it would point at. */
+
+.masthead--home { display: flex; align-items: center; gap: var(--space-sm); color: var(--color-ink); }
+.mark--lg { gap: 7px; }
+.mark--lg .mark__moon { width: 25px; height: 25px; box-shadow: inset -7.5px -1.9px 0 0 var(--color-brand-moon); }
+.mark--lg .mark__bars { gap: 4px; }
+.mark--lg .mark__bars span { height: 3.5px; }
+.mark--lg .mark__bars span:nth-child(1) { width: 25px; }
+.mark--lg .mark__bars span:nth-child(2) { width: 15px; }
+.mark--lg .mark__bars span:nth-child(3) { width: 20px; }
+/* The wordmark clamps (tokens.css) so it cannot overflow at 320px — AUDIT C2. */
+.wordmark--lg { font-size: var(--text-logotype); letter-spacing: var(--track-logotype); color: var(--color-ink); }
+
+.hero { display: flex; flex-direction: column; gap: var(--space-md); }
+.hero__block { display: flex; flex-direction: column; gap: var(--space-sm); }
+/* The home h1 is the smaller display size: it sits under a 46px wordmark and
+   must not outrank it. DESIGN.md §4. */
+.hero h1 { font-size: var(--text-h1-sm); line-height: var(--leading-display); }
+.hero__meta { margin: 0; font-size: var(--text-ui); color: var(--color-ink-muted); }
+
+/* Two columns: the argument, and the thing it is an argument about. */
+.why {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+.why__col { display: flex; flex-direction: column; gap: var(--space-ms); min-width: 0; }
+.why__label { margin: 0; font-size: var(--text-ui); color: var(--color-ink-muted); }
+.why__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-sm); }
+.why__list > li {
+  display: grid;
+  grid-template-columns: var(--space-md) minmax(0, 1fr);
+  gap: var(--space-xs);
+  align-items: baseline;
+  color: var(--color-ink-body);
+}
+.why__n { font-family: var(--font-display); color: var(--color-action); }
+.pull {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lede);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--color-ink);
+}
+
+.figure { margin: 0; display: flex; flex-direction: column; gap: var(--space-2xs); min-width: 0; }
+.figure__frame {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  padding: var(--space-2xs);
+}
+/* The asset's own aspect ratio, not a chosen one: at 16/10 the frame cropped a
+   fifth off a screenshot that is already a deliberate 21-night excerpt. */
+.figure__frame img { display: block; width: 100%; border-radius: var(--radius-image); }
+.figure figcaption { font-size: var(--text-sm); color: var(--color-ink-muted); }
+
+/* The four steps. The sequence is the ordered list and the numeral is how a
+   sighted reader sees it; the arrow is ornament and is drawn in the gap, so it
+   can disappear on a phone without taking the order with it (AUDIT C1). */
+.flow,
+.flow-notes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 var(--space-lg);
+}
+.flow { align-items: stretch; counter-reset: step; list-style: none; margin: 0; padding: 0; }
+.flow > li {
+  position: relative;
+  counter-increment: step;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-ms);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-sizing: border-box;
+}
+.flow > li[aria-current="step"] { background: var(--color-action-tint); border-color: var(--color-action-tint-border); }
+.step-title { font-size: var(--text-ui); font-weight: 600; color: var(--color-ink); }
+.step-title::before {
+  content: counter(step) ". ";
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--color-action);
+}
+.flow > li[aria-current="step"] .step-title { color: var(--color-action-hover); }
+.flow > li[aria-current="step"] .step-title::before { color: var(--color-action-hover); }
+.step-note { font-size: var(--text-xs); color: var(--color-ink-muted); }
+.flow > li[aria-current="step"] .step-note { color: var(--color-action-tint-ink); }
+.step-link { font-size: var(--text-sm); text-decoration: none; }
+.flow > li:not(:last-child)::after {
+  content: "\2192";
+  position: absolute;
+  right: calc(var(--space-lg) * -1);
+  width: var(--space-lg);
+  top: var(--space-sm);
+  text-align: center;
+  color: var(--color-arrow);
+  font-size: var(--text-ui);
+  line-height: var(--leading-body);
+}
+
+.flow-notes { align-items: start; }
+.flow-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  border-top: 1px dashed var(--color-border-dashed);
+  padding-top: var(--space-xs);
+}
+.flow-note--a { grid-column: 1; }
+.flow-note--b { grid-column: 4; }
+.eyebrow {
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-brand-moon);
+}
+.flow-note span:not(.eyebrow) { font-size: var(--text-sm); color: var(--color-ink-muted); }
+.flow-note a { font-size: var(--text-sm); text-decoration: none; }
+
+/* The one moment the page asks for something: no rule above it, warm block
+   behind it. The rhythm changes here and nowhere else. */
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-ms);
+  background: var(--color-surface-warm);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg) var(--space-lg) var(--space-xl);
+}
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  height: 48px;
+  padding: 0 var(--space-md);
+  background: var(--color-action);
+  color: var(--color-on-action);
+  border-radius: var(--radius-button);
+  font-size: var(--text-ui);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-link:hover { background: var(--color-action-hover); color: var(--color-on-action); }
+.btn-link:active { background: var(--color-action-hover); transform: translateY(1px); }
+.btn-link span { opacity: 0.7; }
+
+/* ---- The stack breakpoint ------------------------------------------------
+   --bp-stack is 700px; a custom property can't be read inside a media query,
+   so the number is repeated here and nowhere else. */
+
+@media (max-width: 700px) {
+  .why { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+  .flow,
+  .flow-notes { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
+  .flow > li:not(:last-child)::after { display: none; }
+  .flow-note--a, .flow-note--b { grid-column: 1; }
+}
+
+/* A section whose children are a simple vertical stack. The rule and its
+   padding come from .sec; this only sets the rhythm inside. */
+.stack { display: flex; flex-direction: column; gap: var(--space-md); }
+
+/* A figure that owns the whole column rather than sharing it with an argument.
+   The annotated figure's smallest legible element is a spreadsheet cell about
+   54px wide, which fixes its plate near 1900px — at the ~390px a half-column
+   gives it, the cell values are mush. */
+.figure--wide .figure__frame img { width: 100%; }
+
+/* Shown only where it is true: advice about finishing the job on a phone.
+   Not [hidden], which the rule at the top of this file makes unconditional. */
+.on-phone { display: none; }
+@media (max-width: 700px) { .on-phone { display: block; } }

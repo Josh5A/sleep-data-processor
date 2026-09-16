@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>About the numbers — Chart My Sleep</title>
+<meta name="description" content="Where the chart and your memory of the night won't quite agree, and why each one is on purpose: time in bed, the clock changes, the 6pm row cut, duplicates and time zones.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="About the numbers — Chart My Sleep">
+<meta property="og:description" content="Where the chart and your memory of the night won't quite agree, and why each one is on purpose.">
+<meta property="og:url" content="https://josh5a.github.io/sleep-data-processor/notes/">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="../fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="../fonts.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- Copy and order: dev/design/Notes.dc.html, which is final; the caveat set
+     itself is owned by dev/web-caveats.md. Severity is carried by ORDER — the
+     first two sections are the two a reader actually hits — so nothing here is
+     colour-coded and nothing is collapsed. -->
+
+<div class="page">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="shell shell--tool">
+
+    <nav class="masthead" aria-label="Site">
+      <a class="lockup" href="../">
+        <span class="mark" aria-hidden="true">
+          <span class="mark__moon"></span>
+          <span class="mark__bars"><span></span><span></span><span></span></span>
+        </span>
+        <span class="wordmark">Chart My Sleep</span>
+      </a>
+      <a class="tap masthead__aside" href="../chart/">Back to the tool &rarr;</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+
+      <header class="page-head">
+        <h1>About the numbers</h1>
+        <p class="lede lede--prose">A few places where the chart and your memory of the night
+        won&rsquo;t quite agree &mdash; and why each one is on purpose.</p>
+        <p class="subtitle">The first two are the ones you&rsquo;ll actually notice. The rest are
+        here so you can check.</p>
+      </header>
+
+      <section class="sec prose">
+        <h2>The bars show time in bed, not time asleep</h2>
+        <p>Each bar covers the stretch you had Sleep Cycle recording &mdash; lights out to alarm
+        off. Sleep Cycle counts the time you were actually asleep separately, and that number is
+        always smaller. Usually by around an hour a night.</p>
+        <p>So a row that reads <span class="data-inline">08:30</span> is closer to seven and a half
+        hours of real sleep. If you want that figure, your export already has it, in a column called
+        &ldquo;Time asleep.&rdquo;</p>
+        <p class="subhead">Why it&rsquo;s drawn this way</p>
+        <p>This chart is about <em>when</em> you sleep and how steady that is, not how much. Drawing
+        only the asleep minutes would punch small holes through every bar wherever you stirred in
+        the night, and the shape you came here to see would disappear.</p>
+      </section>
+
+      <section class="sec prose">
+        <h2>Twice a year the clocks change and one row won&rsquo;t add up</h2>
+        <p>The chart is a wall clock: 24 columns, one per hour. Two nights a year the day
+        isn&rsquo;t 24 hours long.</p>
+        <ul class="dash-list">
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span><strong>Clocks back.</strong> 1am happens twice and both of them land in the one
+            1am column, so the columns come up an hour short.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span><strong>Clocks forward.</strong> 2am never happens, but the 2am square is filled
+            in anyway. Leaving it blank would put a gap through the middle of the night that looks
+            like you woke up.</span>
+          </li>
+        </ul>
+        <p>The total at the end of the row is your real time in bed either way. On those two rows
+        it just won&rsquo;t match the squares beside it. Nothing is wrong.</p>
+      </section>
+
+      <section class="sec prose">
+        <h2>Each row runs from 6pm to 5pm the next day</h2>
+        <p>Rows are cut in the early evening rather than at midnight, so an ordinary night sits
+        whole in the middle of one row instead of being sliced in half and read as two.</p>
+        <p class="subhead">The trade-off</p>
+        <p>A sleep that crosses 6pm gets split instead: the hours before it finish one row, the
+        hours after start the next. If you sleep during the day, some of your sleeps will show up in
+        halves. Each row&rsquo;s total is right for the part it holds &mdash; only the picture is
+        divided.</p>
+        <p class="subhead">One rare overlap</p>
+        <p>A very long sleep that starts in the afternoon and runs past dawn, landing on one of
+        those two clock-change nights, can put its extra hour in the row above. One hour, twice a
+        year, and only if your nights look like that.</p>
+      </section>
+
+      <section class="sec prose">
+        <h2>Times stay exactly as Sleep Cycle recorded them</h2>
+        <p>Sleep Cycle writes down the local time wherever you happened to be, and that is what gets
+        drawn. Nothing is shifted back to the time at home.</p>
+        <p>So a week away shows up as a week of sleep at different hours &mdash; which, in clock
+        terms, is what it was. It also means your chart looks the same to anyone you show it to,
+        wherever they are.</p>
+      </section>
+
+      <section class="sec prose">
+        <h2>A night that appears twice is only counted once</h2>
+        <p>Exports sometimes list one sleep twice, with the same start and end time. The second copy
+        is ignored, so that night isn&rsquo;t doubled.</p>
+        <p>And if two sleeps ever lay claim to the same hour, that hour stops at full. An hour
+        can&rsquo;t hold more than an hour.</p>
+      </section>
+
+      <section class="sec prose">
+        <h2>It reads Sleep Cycle exports, and only the times</h2>
+        <ul class="dash-list">
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>Sleep Cycle exports work. Other sleep apps write their files differently and
+            won&rsquo;t be recognised.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>Only the start and end of each sleep are used. Sleep quality, heart rate, snoring,
+            steps, mood and the weather are all left alone.</span>
+          </li>
+        </ul>
+        <p class="more"><a class="tap" href="../export/">How to export from Sleep Cycle &rarr;</a></p>
+      </section>
+
+    </main>
+
+    <footer>
+      <a class="tap" href="../export/">Exporting from Sleep Cycle</a>
+      <span aria-current="page">About the numbers</span>
+      <a class="tap" href="../privacy/">Privacy</a>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

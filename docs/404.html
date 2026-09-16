@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Page not found — Chart My Sleep</title>
+<meta name="description" content="That page isn't here. The tool is at /chart.">
+<meta name="robots" content="noindex">
+
+<link rel="icon" href="/sleep-data-processor/favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="/sleep-data-processor/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/sleep-data-processor/fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/sleep-data-processor/fonts.css">
+<link rel="stylesheet" href="/sleep-data-processor/tokens.css">
+<link rel="stylesheet" href="/sleep-data-processor/style.css">
+</head>
+<body>
+
+<!-- L12. Pages serves this for any unknown path at any depth, so every href
+     here is absolute from the domain root — a relative one would resolve
+     against the URL that missed. -->
+
+<div class="page">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="shell shell--tool">
+
+    <nav class="masthead" aria-label="Site">
+      <a class="lockup" href="/sleep-data-processor/">
+        <span class="mark" aria-hidden="true">
+          <span class="mark__moon"></span>
+          <span class="mark__bars"><span></span><span></span><span></span></span>
+        </span>
+        <span class="wordmark">Chart My Sleep</span>
+      </a>
+      <a class="tap masthead__aside" href="/sleep-data-processor/">First time? Start here &rarr;</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+
+      <header class="page-head">
+        <h1>That page isn&rsquo;t here</h1>
+        <p class="lede lede--prose">Either the address has a typo in it, or it used to be something
+        and isn&rsquo;t any more.</p>
+      </header>
+
+      <section class="sec prose">
+        <p class="more"><a class="tap" href="/sleep-data-processor/chart/">Go to the tool &rarr;</a></p>
+      </section>
+
+    </main>
+
+    <footer>
+      <a class="tap" href="/sleep-data-processor/export/">Exporting from Sleep Cycle</a>
+      <a class="tap" href="/sleep-data-processor/notes/">About the numbers</a>
+      <a class="tap" href="/sleep-data-processor/privacy/">Privacy</a>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
