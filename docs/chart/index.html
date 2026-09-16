@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Format your sleep data — Chart My Sleep</title>
+<meta name="description" content="Paste a Sleep Cycle export and get rows ready for the Google Sheets sleep chart template. Runs entirely in your browser; this server never sees your sleep data.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Format your sleep data — Chart My Sleep">
+<meta property="og:description" content="Paste a Sleep Cycle export and get rows for the Google Sheets chart template. Nothing leaves your browser.">
+<meta property="og:url" content="https://josh5a.github.io/sleep-data-processor/chart/">
+<meta property="og:image" content="https://josh5a.github.io/sleep-data-processor/images/og-chart.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+<!-- Self-hosted, so preloading is worth it: the wordmark is the largest type on
+     the page and a swap-in after first paint is the most visible reflow here.
+     crossorigin is required even same-origin, or the preload doesn't match the
+     font request and the file is fetched twice. -->
+<link rel="preload" href="../fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="../fonts.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="page">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="shell shell--tool">
+
+    <nav class="masthead" aria-label="Site">
+      <a class="lockup" href="../">
+        <span class="mark" aria-hidden="true">
+          <span class="mark__moon"></span>
+          <span class="mark__bars"><span></span><span></span><span></span></span>
+        </span>
+        <span class="wordmark">Chart My Sleep</span>
+      </a>
+      <a class="tap masthead__aside" href="../">First time? Start here &rarr;</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+
+      <header class="page-head">
+        <h1>Format your sleep data</h1>
+        <p class="lede">Paste your Sleep Cycle export below and get rows ready for the Google Sheets chart template.</p>
+      </header>
+
+      <!-- Position strip. Steps 1 and 2 are places on this site you may still
+           need; 3 is where you are; 4 is not a link, because the template has
+           its own section below with the explanation next to it. -->
+      <nav class="steps" aria-label="Where you are">
+        <ol>
+          <!-- Step 1 is not a link: /track was decided against (DESIGN.md §9, and
+               the someday list in dev/last-20-plan.md §8). The "not tracking yet?"
+               note on / carries it instead. A pill that pointed here 404'd. -->
+          <li><span class="pill">1 &middot; Track</span></li>
+          <li><a class="pill" href="../export/">2 &middot; Export</a></li>
+          <li><span class="pill" aria-current="step">3 &middot; Format &mdash; you are here</span></li>
+          <li><span class="pill">4 &middot; Paste into the template</span></li>
+        </ol>
+      </nav>
+
+      <section class="io">
+        <h2 class="section-title" id="lbl-in">Your sleep data</h2>
+
+        <textarea id="input" class="databox" aria-labelledby="lbl-in" spellcheck="false"
+          placeholder="Paste the contents of sleepdata.csv here, or drop the file into this box — header row included."></textarea>
+
+        <div class="row">
+          <input type="file" id="file" accept=".csv,text/csv,text/plain" hidden
+            aria-label="Choose a Sleep Cycle export file">
+          <button type="button" class="btn btn--secondary" id="browse">Choose file</button>
+          <span class="meta" id="file-label">CSV or text</span>
+        </div>
+
+        <!-- L7. A visitor who arrived from a shared link has no export in hand;
+             without this, /chart is a dead page for them. -->
+        <button type="button" class="demo-link" id="demo">See it with example data &rarr;</button>
+
+        <p class="hint">
+          <span class="hint__dot" aria-hidden="true">&bull;</span>
+          <span><a class="tap" href="../privacy/">This server never sees your sleep data.</a>
+          The file is read and converted on your own device.</span>
+        </p>
+      </section>
+
+      <section class="error" id="error" role="alert" hidden>
+        <span class="error__msg" id="error-msg"></span>
+        <span class="error__fix" id="error-fix"></span>
+        <a class="tap error__link" id="error-link" href="../export/">See how to export from Sleep Cycle &rarr;</a>
+      </section>
+
+      <section class="io io--out">
+        <div class="io__head">
+          <h2 class="section-title" id="lbl-out">Your formatted rows</h2>
+          <span class="status" id="status" aria-live="polite"></span>
+        </div>
+
+        <textarea id="output" class="databox" aria-labelledby="lbl-out" readonly wrap="off"
+          spellcheck="false" placeholder="Rows appear here as soon as there's data to format."></textarea>
+
+        <div class="row row--wide">
+          <button type="button" class="btn" id="copy" disabled>Copy rows</button>
+          <span class="meta">Paste into cell A2 of the template.</span>
+          <!-- A name change on the element that already has focus is announced
+               inconsistently, so the confirmation gets its own live region — and
+               says what went to the clipboard, which "Copied" doesn't. -->
+          <span class="sr-only" id="copy-announce" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <!-- Caveats sit between the output and the template link, not after it.
+           DESIGN.md §8.6: at the moment they matter, before the user goes to
+           look at their chart. The template link opens in a new tab, so
+           anything below it is read by nobody on their first pass. -->
+      <section class="notes">
+        <h2 class="section-title">Before you read your chart</h2>
+        <details>
+          <summary>On two nights a year the clocks change and the columns won&rsquo;t add up.</summary>
+          <p>Twice a year a day isn&rsquo;t 24 hours long. On the night the clocks go back, 1am happens
+          twice — both hours land in the single 1am column, so the columns come up an hour short. On
+          the night they go forward, 2am never happens at all. Either way the total at the end of the
+          row is your real sleep time, so it&rsquo;s the columns that are off, not the total.</p>
+        </details>
+        <details>
+          <summary>These are hours in bed, not hours asleep.</summary>
+          <p>The hours come from what Sleep Cycle recorded as time in bed, which runs a little longer
+          than the time you were actually asleep.</p>
+        </details>
+        <a href="../notes/">All the caveats, in full &rarr;</a>
+      </section>
+
+      <section class="handoff">
+        <h2 class="section-title">Paste it into the template</h2>
+        <!-- L2 and L3. The first-time path and the update path are different
+             instructions, and the returning user pastes far more often than
+             the first-timer does. L3: say what should happen, so a user who
+             pastes and sees nothing knows it went wrong. -->
+        <ol class="handoff__list">
+          <li><strong>First time:</strong> make your own copy of the template, click cell A2, and
+          paste. The chart appears beside the rows within a second or two.</li>
+          <li><strong>Every time after:</strong> Sleep Cycle exports your whole history every time,
+          so click A2 and paste over the top again. It replaces what&rsquo;s there; it doesn&rsquo;t
+          append. Anything you have written in the notes column is kept &mdash; the paste only
+          covers the dates, the hours and the total.</li>
+        </ol>
+        <p class="meta">Opens in a new tab, in your own Google account. Google asks you to confirm the copy.</p>
+        <!-- L16. The visitor who arrived from a shared link is on a phone and
+             cannot comfortably finish the job there. Said once, at the step it
+             applies to, and only at the width where it is true. -->
+        <p class="meta on-phone">On a phone this last step is fiddly: making the copy and clicking
+        into cell A2 is much easier on a computer. The rows above are already yours &mdash; copy them
+        now and finish when you get to one.</p>
+        <a class="tap handoff__cta" id="template"
+          href="https://docs.google.com/spreadsheets/d/1bae1Rd7Ow1-quu7ddtPsrhsauH6KFFqn4suwRdhfGoM/copy"
+          target="_blank" rel="noreferrer">Make your own copy of the template &rarr;</a>
+      </section>
+
+    </main>
+
+    <footer>
+      <a class="tap" href="../export/">Exporting from Sleep Cycle</a>
+      <a class="tap" href="../notes/">About the numbers</a>
+      <a class="tap" href="../privacy/">Privacy</a>
+    </footer>
+
+  </div>
+</div>
+
+<script type="module">
+// Relative path, not absolute: the site is served from /sleep-data-processor/,
+// not the domain root, so /sleep-data-processor.js would 404 (B5.4).
+import { processSleepData } from '../sleep-data-processor.js';
+import { DEMO_CSV, DEMO_FILENAME } from '../demo-data.js';
+
+const $ = (id) => document.getElementById(id);
+const input = $('input'), output = $('output'), status = $('status');
+const errorBox = $('error'), errorMsg = $('error-msg'), errorFix = $('error-fix');
+const errorLink = $('error-link'), copyBtn = $('copy'), announce = $('copy-announce');
+const fileInput = $('file'), fileLabel = $('file-label');
+
+// The module raises the message; the page owns the recovery line and decides
+// whether /export is the right place to send someone. DESIGN.md §8.5 and
+// README.md §Interactions 6: the fix belongs to the FAILURE, not to the error
+// block. A read failure is not a wrong file, so "most of the time this is the
+// wrong file" is not said about it and it gets no export link — that advice is
+// confident, plausible and wrong, and one shared line teaches people to stop
+// reading the block at all.
+const RECOVERY = {
+    noRows:   { fix: 'Most of the time this is the wrong file.', offerExport: true },
+    noTimes:  { fix: 'Most of the time this is the wrong file.', offerExport: true },
+    noNights: { fix: 'If you opened or edited the file in a spreadsheet first, export a fresh copy.', offerExport: true },
+    unread:   { fix: 'Choose it again, or open it and paste the contents into the box above.', offerExport: false },
+};
+
+let copyTimer = 0;
+
+function showError(message, fix, offerExport, clearedRows) {
+    errorMsg.textContent = message;
+    errorFix.textContent = clearedRows
+        ? fix + ' The rows from your last file have been cleared.'
+        : fix;
+    errorLink.hidden = !offerExport;
+    errorBox.hidden = false;
+}
+
+// L15. Nights and a date range, not "N sessions → M rows": both halves are
+// checkable against what the user expected to find.
+function describe(text) {
+    const rows = text.split('\n').filter((line) => line !== '');
+    if (!rows.length) return '';
+    const from = rows[0].split('\t')[0].split(' → ')[0];
+    const to = rows[rows.length - 1].split('\t')[0].split(' → ')[1];
+    const nights = rows.length.toLocaleString();
+    return nights + (rows.length === 1 ? ' night' : ' nights') + ' · ' + from + ' → ' + to;
+}
+
+function setOutput(text) {
+    output.value = text;
+    status.textContent = text ? describe(text) : '';
+    copyBtn.disabled = !text;
+    resetCopyLabel();
+}
+
+function resetCopyLabel() {
+    clearTimeout(copyTimer);
+    copyBtn.textContent = 'Copy rows';
+    copyBtn.classList.remove('btn--copied');
+    announce.textContent = '';
+}
+
+// Conversion is automatic (L13, decided): output appears as soon as there is
+// input. There is no Convert button and no disabled-button state for one.
+//
+// An empty box and an empty FILE are different events. Clearing the textarea is
+// the user undoing something and must return the page to its empty state in
+// silence; choosing a file that turns out to be empty is a failure, and saying
+// nothing about it is the worst of the three failures in L10 — the person did
+// something, nothing happened, and the page offered no account of it. The blank
+// string goes to the module in that case so the message has one source.
+function convert(text, name, fromFile) {
+    const hadOutput = output.value !== '';
+    fileLabel.textContent = name || 'CSV or text';
+    errorBox.hidden = true;
+
+    if (!text.trim() && !fromFile) { setOutput(''); return; }
+
+    try {
+        setOutput(processSleepData(text));
+    } catch (e) {
+        setOutput('');
+        // An unrecognised code would be a module change this page has not caught
+        // up with; fall back to the most common cause rather than showing a bare
+        // message with no way forward.
+        const recovery = RECOVERY[e.code] || RECOVERY.noRows;
+        showError(e.message, recovery.fix, recovery.offerExport, hadOutput);
+    }
+}
+
+function readFile(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+        input.value = String(reader.result);
+        convert(input.value, file.name, true);
+    };
+    reader.onerror = () => {
+        const hadOutput = output.value !== '';
+        setOutput('');
+        showError("That file couldn't be read.", RECOVERY.unread.fix, RECOVERY.unread.offerExport, hadOutput);
+    };
+    reader.readAsText(file);
+}
+
+input.addEventListener('input', () => convert(input.value, ''));
+
+// The textarea is the drop zone; there is no separate dashed box.
+input.addEventListener('dragover', (e) => { e.preventDefault(); input.classList.add('is-dragging'); });
+input.addEventListener('dragleave', () => input.classList.remove('is-dragging'));
+input.addEventListener('drop', (e) => {
+    e.preventDefault();
+    input.classList.remove('is-dragging');
+    readFile(e.dataTransfer.files && e.dataTransfer.files[0]);
+});
+
+$('browse').addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => readFile(fileInput.files && fileInput.files[0]));
+
+$('demo').addEventListener('click', () => {
+    input.value = DEMO_CSV;
+    convert(DEMO_CSV, DEMO_FILENAME);
+    input.focus();
+    input.setSelectionRange(0, 0);
+});
+
+output.addEventListener('click', () => output.select());
+
+copyBtn.addEventListener('click', () => {
+    const rows = output.value.split('\n').filter((line) => line !== '').length;
+    const done = () => {
+        copyBtn.textContent = 'Copied ' + rows.toLocaleString() + ' rows';
+        copyBtn.classList.add('btn--copied');
+        announce.textContent = 'Copied ' + rows.toLocaleString() + ' rows to the clipboard.';
+        clearTimeout(copyTimer);
+        copyTimer = setTimeout(resetCopyLabel, 2200);
+    };
+    const fallback = () => { output.select(); document.execCommand('copy'); done(); };
+    if (navigator.clipboard) navigator.clipboard.writeText(output.value).then(done, fallback);
+    else fallback();
+});
+</script>
+
+</body>
+</html>

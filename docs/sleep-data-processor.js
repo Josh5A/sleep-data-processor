@@ -21,7 +21,33 @@ const SECONDS_PER_DAY = 86400;
 const SECONDS_PER_HOUR = 3600;
 const TIME_IN_BED_HEADER = 'Time in bed (seconds)';
 const DELIMITERS = [';', ',', '\t'];
-const NOT_SLEEP_CYCLE = "This file couldn't be processed. It doesn't look like a Sleep Cycle export.";
+/*
+ * Failures carry a code as well as a message. DESIGN.md §8.5 and README.md
+ * §Interactions 6: the recovery line belongs to the failure, not to the error
+ * block — one shared line across unrelated failures is right often enough to
+ * look fine and wrong often enough to teach people to stop reading it. The
+ * module owns the message (what went wrong, in what the person can see); the
+ * page owns the recovery line and whether /export is the right place to send
+ * them. Three codes are raised here; the fourth, `unread`, belongs to the page
+ * because only the page reads files.
+ */
+const FAILURES = {
+    noRows: "This doesn't look like a Sleep Cycle export — there are no data rows in it.",
+    noTimes: 'This file has no start and end times in it.',
+    noNights: 'None of the nights in this file could be read.',
+};
+
+/**
+ * Builds the error for a failure code, with the code attached for the caller.
+ *
+ * @param {'noRows'|'noTimes'|'noNights'} code
+ * @returns {Error}
+ */
+function failure(code) {
+    const error = new Error(FAILURES[code]);
+    error.code = code;
+    return error;
+}
 
 /**
  * Processes a Sleep Cycle CSV export into chart text.
@@ -57,22 +83,25 @@ export function processSleepData(csvText) {
  */
 function readCsvData(csvText) {
     if (typeof csvText !== 'string') {
-        throw new Error(NOT_SLEEP_CYCLE);
+        throw failure('noRows');
     }
 
     // A BOM would otherwise make the first header name '\uFEFFStart'
     const lines = csvText.replace(/^\uFEFF/, '').split('\n').map(stripCarriageReturn);
     const headerLine = lines.shift();
 
-    if (headerLine === undefined) {
-        throw new Error(NOT_SLEEP_CYCLE);
+    // An empty or blank file has no header and no rows. It reaches this branch
+    // before the Start/End check, and "no start and end times" would be a
+    // strange thing to say about a file with nothing in it at all.
+    if (headerLine === undefined || headerLine.trim() === '') {
+        throw failure('noRows');
     }
 
     const delimiter = sniffDelimiter(headerLine);
     const header = headerLine.split(delimiter).map((name) => name.trim());
 
     if (!header.includes('Start') || !header.includes('End')) {
-        throw new Error(NOT_SLEEP_CYCLE);
+        throw failure('noTimes');
     }
 
     const timeInBedColumn = header.indexOf(TIME_IN_BED_HEADER);
@@ -101,7 +130,7 @@ function readCsvData(csvText) {
             // If the very first data row will not parse, this is not an export
             // we understand, and guessing at what was meant helps nobody.
             if (firstDataRow) {
-                throw new Error(NOT_SLEEP_CYCLE);
+                throw failure('noNights');
             }
             firstDataRow = false;
             continue;
@@ -118,7 +147,7 @@ function readCsvData(csvText) {
     }
 
     if (sessions.length === 0) {
-        throw new Error(NOT_SLEEP_CYCLE);
+        throw failure('noNights');
     }
 
     return sessions;
