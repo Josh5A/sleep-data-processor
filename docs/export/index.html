@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Exporting from Sleep Cycle — Chart My Sleep</title>
+<meta name="description" content="Where Sleep Cycle keeps the export, in five taps, with a picture of every screen. Then AirDrop the file to a computer, or copy it and paste it straight into the tool.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Exporting from Sleep Cycle — Chart My Sleep">
+<meta property="og:description" content="Where Sleep Cycle keeps the export, in five taps, with a picture of every screen.">
+<meta property="og:url" content="https://josh5a.github.io/sleep-data-processor/export/">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="../fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="../fonts.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- L9. Reference material, not onboarding (DESIGN.md §9): the person reading
+     this is stuck, or has done it before and forgotten where the menu was.
+     Screenshots are real captures of the app, each cropped to the part that
+     carries its step and marked with one red oval. The copy names the thing to
+     tap as well as circling it — the oval is never the only carrier of the
+     meaning (§10). Sources, oval coordinates and crops: the one table at the top
+     of dev/annotate-export-shots.sh; re-run it after any re-capture. -->
+
+<div class="page">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="shell shell--tool">
+
+    <nav class="masthead" aria-label="Site">
+      <a class="lockup" href="../">
+        <span class="mark" aria-hidden="true">
+          <span class="mark__moon"></span>
+          <span class="mark__bars"><span></span><span></span><span></span></span>
+        </span>
+        <span class="wordmark">Chart My Sleep</span>
+      </a>
+      <a class="tap masthead__aside" href="../chart/">Back to the tool &rarr;</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+
+      <header class="page-head">
+        <h1>Exporting from Sleep Cycle</h1>
+        <p class="lede lede--prose">The export is five taps deep, in a menu nobody finds by
+        accident. Here is the path, with a picture of each screen.</p>
+        <p class="subtitle">About a minute. The red ring on each picture is the thing to tap.</p>
+      </header>
+
+      <section class="sec">
+        <ol class="guide">
+
+          <li>
+            <div class="guide__body">
+              <h2 class="guide__title">Open Sleep Cycle and tap Profile</h2>
+              <p>It is the last tab in the row along the bottom, on the right.</p>
+            </div>
+            <figure class="guide__shot">
+              <div class="figure__frame">
+                <img src="../images/export/1-profile.png" width="585" height="172" loading="lazy"
+                  alt="The bottom of the Sleep Cycle home screen. The tab bar reads Sleep, Programs, Journal, Statistics, Profile; Profile, on the right, is circled in red.">
+              </div>
+            </figure>
+          </li>
+
+          <li>
+            <div class="guide__body">
+              <h2 class="guide__title">Scroll to the bottom and tap &ldquo;&bull;&bull;&bull; More&rdquo;</h2>
+              <p>Profile opens on your totals &mdash; nights recorded, average time, backup. Keep
+              scrolling past the Settings list. &ldquo;More&rdquo; is the last row, under Weekly
+              report.</p>
+            </div>
+            <figure class="guide__shot">
+              <div class="figure__frame">
+                <img src="../images/export/2-more.png" width="585" height="279" loading="lazy"
+                  alt="The end of the Profile screen's Settings list: Sleep school, Weekly report, and then a last row of three dots followed by the word More, circled in red.">
+              </div>
+            </figure>
+          </li>
+
+          <li>
+            <div class="guide__body">
+              <h2 class="guide__title">Tap Account</h2>
+              <p>First row on the More screen, under the heading Personal.</p>
+            </div>
+            <figure class="guide__shot">
+              <div class="figure__frame">
+                <img src="../images/export/3-account.png" width="585" height="460" loading="lazy"
+                  alt="The top of the More screen. Under the heading Personal the rows read Account, About you, Consent and privacy; Account is circled in red.">
+              </div>
+            </figure>
+          </li>
+
+          <li>
+            <div class="guide__body">
+              <h2 class="guide__title">Tap Export data</h2>
+              <p>Fourth in the list of blue links, under Log out.</p>
+              <p><strong>Read the row before you tap it.</strong> The two rows underneath are red and
+              they erase your sleep history. Export data is the last of the blue ones.</p>
+            </div>
+            <figure class="guide__shot">
+              <div class="figure__frame">
+                <img src="../images/export/4-export-data.png" width="585" height="680" loading="lazy"
+                  alt="The Account screen. A list of blue links reads Restore purchase, Manage account, Log out, Export data, and then two red links beginning Erase your data. Export data is circled in red.">
+              </div>
+            </figure>
+          </li>
+
+          <li>
+            <div class="guide__body">
+              <h2 class="guide__title">Send yourself the file</h2>
+              <p>Sleep Cycle builds the file &mdash; <span class="data-inline">sleepdata.csv</span>,
+              a plain text file, a couple of hundred kilobytes &mdash; and hands it to the usual iOS
+              share sheet. Two of those options are the ones you want:</p>
+              <ul class="dash-list">
+                <li>
+                  <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+                  <span><strong>AirDrop</strong>, if you are going to finish on a Mac. The file lands
+                  in Downloads. This is the one to pick: the last step of all this happens in Google
+                  Sheets, which wants a computer.</span>
+                </li>
+                <li>
+                  <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+                  <span><strong>Copy</strong>, which puts the contents of the file on your clipboard.
+                  Paste it straight into the box on the tool. If your Mac and your phone are signed in
+                  to the same Apple account, a copy on the phone can be pasted on the Mac.</span>
+                </li>
+              </ul>
+              <p class="meta">Every export is your whole history, not just the nights since last
+              time. That is why the tool tells you to paste over the top of the old rows rather than
+              underneath them.</p>
+            </div>
+            <figure class="guide__shot">
+              <div class="figure__frame">
+                <img src="../images/export/5-share.png" width="585" height="740" loading="lazy"
+                  alt="The iOS share sheet for a file called sleepdata, a text document of 148 KB. Two buttons are circled in red: AirDrop, in the row of apps, and Copy, in the row of actions below it.">
+              </div>
+            </figure>
+          </li>
+
+        </ol>
+      </section>
+
+      <section class="sec prose">
+        <h2>That is the file</h2>
+        <p>Drop it into the box on the tool, or paste the text in. The rows come back formatted for
+        the chart template, and nothing about the file leaves your own device.</p>
+        <p class="more"><a class="tap" href="../chart/">Back to the tool &rarr;</a></p>
+      </section>
+
+    </main>
+
+    <footer>
+      <span aria-current="page">Exporting from Sleep Cycle</span>
+      <a class="tap" href="../notes/">About the numbers</a>
+      <a class="tap" href="../privacy/">Privacy</a>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

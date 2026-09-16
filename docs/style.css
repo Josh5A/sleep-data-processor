@@ -695,3 +695,40 @@ h2.display {
    Not [hidden], which the rule at the top of this file makes unconditional. */
 .on-phone { display: none; }
 @media (max-width: 700px) { .on-phone { display: block; } }
+
+/* ---- Step-by-step guide (/export) ----------------------------------------
+   Reference material, not onboarding (DESIGN.md §9): numbered steps in the
+   body face, each beside the screen it describes. The number is the ordered
+   list's, not a drawn glyph, so the sequence survives with images off. */
+
+.guide { margin: 0; padding: 0; list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: var(--space-xl); }
+.guide > li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: var(--space-lg);
+  align-items: start;
+}
+.guide__body { display: flex; flex-direction: column; gap: var(--space-xs); min-width: 0; }
+.guide__body p { margin: 0; max-width: var(--measure-wide); }
+.guide__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-h2);
+  line-height: 1.2;
+  letter-spacing: var(--track-h2);
+  color: var(--color-ink);
+}
+.guide__title::before { content: counter(step) ". "; color: var(--color-action); }
+/* The screenshot frame: same treatment as the chart figure on the homepage —
+   surface, card radius outside, image radius inside, one 8px inset. */
+.guide__shot { margin: 0; }
+.guide__shot img { display: block; width: 100%; border-radius: var(--radius-image); }
+/* A red oval on each shot marks the thing to tap. Stated once, in the copy, so
+   the colour is never the only carrier of the meaning (DESIGN.md §10). */
+
+@media (max-width: 700px) {
+  .guide > li { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+  .guide__shot { max-width: 240px; }
+}
