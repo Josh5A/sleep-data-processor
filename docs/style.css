@@ -16,6 +16,17 @@ html, body { overflow-x: clip; }
    the script hid. Stated once, here, rather than remembered at each use site. */
 [hidden] { display: none !important; }
 
+/* Every <img> on the site carries width and height attributes, so the browser
+   reserves the right box before the file arrives and nothing reflows on load.
+   Those attributes are presentational hints, not just metadata: a rule that
+   sets only `width` leaves the height hint standing, and the image draws at the
+   CSS width by the attribute's pixel HEIGHT — squashed, at whatever ratio the
+   two numbers happen to make. `height: auto` is what turns the pair back into
+   an aspect ratio, and it has to be stated once here rather than remembered at
+   each use site, because the failure is silent: the image is there, it is the
+   right image, and only its proportions are wrong. */
+img { max-width: 100%; height: auto; }
+
 body {
   margin: 0;
   background: var(--color-canvas);
