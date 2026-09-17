@@ -334,7 +334,13 @@ a.pill:active { transform: translateY(1px); }
   transform: none;
 }
 
-.btn--copied {
+/* Both selectors, and both at least as specific as .btn:hover — the pointer is
+   still over the button at the moment this class lands, so a bare .btn--copied
+   loses background and border-color to .btn:hover (0,2,0 beats 0,1,0) while
+   winning `color`. That leaves #17544f on #17544f: a solid teal button with an
+   invisible label. */
+.btn--copied,
+.btn--copied:hover {
   background: var(--color-success-tint);
   color: var(--color-action-hover);
   border-color: var(--color-action-tint-border);
