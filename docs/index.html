@@ -16,12 +16,12 @@
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
-<link rel="preload" href="fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
         </div>
 
         <div class="hero__block">
-          <h1>A free sleep chart maker</h1>
+          <h1>A free sleep chart maker for Sleep Cycle users</h1>
           <p class="lede lede--prose">Paste your sleep data export, get a chart of your real sleep
           pattern.</p>
           <p class="hero__meta">Nothing to install. This server never sees your sleep data.</p>
@@ -77,14 +77,51 @@
 
         <figure class="figure">
           <div class="figure__frame">
-            <img src="images/sleep-chart-screenshot.png" width="1833" height="1071"
+            <img src="images/chart-hero.png" width="1833" height="1071"
               alt="A Google Sheets grid. One row per night from 11/06/23 onward, one column per hour from 6pm through 5pm, green cells marking the hours asleep, and each night's total in the last column.">
           </div>
           <figcaption>One row per night, one column per hour. This is what you get back.</figcaption>
         </figure>
       </section>
 
-      <!-- L5/L6. The annotated figure is the argument, not the texture above it,
+      <section class="sec stack">
+        <h2 class="display">Four easy steps</h2>
+
+        <ol class="flow">
+          <li>
+            <span class="step-title">Track your sleep</span>
+            <span class="step-note">with Sleep Cycle</span>
+            <a class="tap step-link" href="track/">How to start tracking &rarr;</a>
+          </li>
+          <li>
+            <span class="step-title">Export your data</span>
+            <a class="tap step-link" href="export/">How to export from Sleep Cycle &rarr;</a>
+          </li>
+          <li aria-current="step">
+            <span class="step-title">Format it here</span>
+            <span class="step-note">two clicks, in your browser</span>
+            <a class="tap step-link" href="chart/">Go to the formatter &rarr;</a>
+          </li>
+          <li>
+            <span class="step-title">Paste into the template</span>
+            <span class="step-note">Google Sheets draws the chart</span>
+            <a class="tap step-link" href="https://docs.google.com/spreadsheets/d/1bae1Rd7Ow1-quu7ddtPsrhsauH6KFFqn4suwRdhfGoM/copy"
+              target="_blank" rel="noreferrer">Get the template &rarr;</a>
+          </li>
+        </ol>
+
+        <p class="subtitle">The first-time bits you do once. After that it&rsquo;s export, paste,
+        paste &mdash; about two minutes, any time you want an updated chart.</p>
+      </section>
+
+      <section class="cta">
+        <h2 class="display">Ready? It takes two minutes.</h2>
+        <a class="btn-link" href="chart/">Format my sleep data<span aria-hidden="true">&rarr;</span></a>
+      </section>
+
+      <!-- Last, below the steps and the CTA: every visitor needs the next action,
+           only the detail-minded one needs to read the chart before they have one.
+           The annotated figure is the argument, not the texture above it,
            and it is unreadable at the ~390px the two-column block gives a figure —
            so it gets the full column. Two files, not one scaled image: the phone
            variant drops the cell values rather than shrinking them, which is why
@@ -102,59 +139,19 @@
           <figcaption>Twenty-one nights of one person&rsquo;s real export. The pattern is the point:
           not how much sleep, but when &mdash; and how steady that is.</figcaption>
         </figure>
-      </section>
-
-      <section class="sec stack">
-        <h2 class="display">Four easy steps</h2>
-
-        <ol class="flow">
-          <li>
-            <span class="step-title">Track your sleep</span>
-            <span class="step-note">with Sleep Cycle</span>
-          </li>
-          <li>
-            <span class="step-title">Export your data</span>
-            <span class="step-note">buried in settings</span>
-            <a class="tap step-link" href="export/">How to export from Sleep Cycle &rarr;</a>
-          </li>
-          <li aria-current="step">
-            <span class="step-title">Format it here</span>
-            <span class="step-note">two clicks, in your browser</span>
-          </li>
-          <li>
-            <span class="step-title">Paste into the template</span>
-            <span class="step-note">Google Sheets draws the chart</span>
-          </li>
-        </ol>
-
-        <div class="flow-notes">
-          <div class="flow-note flow-note--a">
-            <span class="eyebrow">First time only</span>
-            <span>Not tracking yet? Start tonight, come back in a week.</span>
-          </div>
-          <!-- Caption above link, not below: it lets the link's hit area extend
-               downward into the section gap instead of over the caption. -->
-          <div class="flow-note flow-note--b">
-            <span class="eyebrow">First time only</span>
-            <span>Opens in a new tab, in your own Google account.</span>
-            <a class="tap" href="https://docs.google.com/spreadsheets/d/1bae1Rd7Ow1-quu7ddtPsrhsauH6KFFqn4suwRdhfGoM/copy"
-              target="_blank" rel="noreferrer">Make your own copy of the template &rarr;</a>
-          </div>
-        </div>
-
-        <p class="subtitle">The first-time bits you do once. After that it&rsquo;s export, paste,
-        paste &mdash; about two minutes, any time you want an updated chart.</p>
-      </section>
-
-      <section class="cta">
-        <h2 class="display">Ready? It takes two minutes.</h2>
-        <a class="btn-link" href="chart/">Format my sleep data<span aria-hidden="true">&rarr;</span></a>
+        <!-- Deliberately quiet: this reader has no chart yet, so a prominent link
+             here is a detour rather than a next step. It earns its place for the
+             visitor who arrived from a shared link with nothing to paste. -->
+        <p class="subtitle"><a class="tap" href="howtoread/">What the shapes mean, and how to
+        find yours &rarr;</a></p>
       </section>
 
     </main>
 
     <footer>
+      <a class="tap" href="track/">Tracking your sleep</a>
       <a class="tap" href="export/">Exporting from Sleep Cycle</a>
+      <a class="tap" href="howtoread/">How to read your chart</a>
       <a class="tap" href="notes/">About the numbers</a>
       <a class="tap" href="privacy/">Privacy</a>
     </footer>

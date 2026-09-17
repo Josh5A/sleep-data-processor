@@ -25,7 +25,7 @@
   font-style: normal;
   font-weight: 400 600;
   font-display: swap;
-  src: url('./fonts/manrope-var.woff2') format('woff2');
+  src: url('../fonts/manrope-var.woff2') format('woff2');
 }
 
 /* The logotype is one weight at two sizes. Pinned to a static 400. */
@@ -34,7 +34,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('./fonts/vollkorn-400.woff2') format('woff2');
+  src: url('../fonts/vollkorn-400.woff2') format('woff2');
 }
 
 /* ---- Metric-matched fallbacks ------------------------------------------------

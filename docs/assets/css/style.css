@@ -299,19 +299,6 @@ a.pill:active { transform: translateY(1px); }
 }
 .hint__dot { color: var(--color-action); }
 
-.demo-link {
-  align-self: flex-start;
-  font-size: var(--text-xs);
-  text-decoration: none;
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: inherit;
-  color: var(--color-action);
-  cursor: pointer;
-}
-.demo-link:hover { color: var(--color-action-hover); text-decoration: underline; }
-
 /* ---- Buttons — one disabled recipe for every button on the site (§6) ------ */
 
 .btn {
@@ -408,6 +395,9 @@ a.pill:active { transform: translateY(1px); }
   gap: var(--space-2xs);
   border-top: 1px solid var(--color-rule);
   padding-top: var(--space-md);
+  /* Step 4 in the position strip jumps here; without this the rule lands
+     flush against the viewport edge and the section reads as cut off. */
+  scroll-margin-top: var(--space-md);
 }
 .handoff__list {
   margin: 0;
@@ -435,7 +425,7 @@ footer {
 footer a { text-decoration: none; white-space: nowrap; }
 
 /* The current page in the footer is a span, not a link: it would point at
-   itself. It still needs the colour, since it sits next to three links. */
+   itself. It still needs the colour, since it sits next to the other four. */
 footer [aria-current="page"] { white-space: nowrap; color: var(--color-ink-sub); }
 
 /* ---- Prose pages ---------------------------------------------------------
@@ -587,13 +577,16 @@ h2.display {
 /* The four steps. The sequence is the ordered list and the numeral is how a
    sighted reader sees it; the arrow is ornament and is drawn in the gap, so it
    can disappear on a phone without taking the order with it (AUDIT C1). */
-.flow,
-.flow-notes {
+.flow {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0 var(--space-lg);
+  align-items: stretch;
+  counter-reset: step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.flow { align-items: stretch; counter-reset: step; list-style: none; margin: 0; padding: 0; }
 .flow > li {
   position: relative;
   counter-increment: step;
@@ -618,7 +611,9 @@ h2.display {
 .flow > li[aria-current="step"] .step-title::before { color: var(--color-action-hover); }
 .step-note { font-size: var(--text-xs); color: var(--color-ink-muted); }
 .flow > li[aria-current="step"] .step-note { color: var(--color-action-tint-ink); }
-.step-link { font-size: var(--text-sm); text-decoration: none; }
+/* margin-top:auto pushes the link to the card floor, so the four links
+   line up even when a card carries no step-note. */
+.step-link { font-size: var(--text-sm); text-decoration: none; margin-top: auto; padding-top: var(--space-2xs); }
 .flow > li:not(:last-child)::after {
   content: "\2192";
   position: absolute;
@@ -630,26 +625,6 @@ h2.display {
   font-size: var(--text-ui);
   line-height: var(--leading-body);
 }
-
-.flow-notes { align-items: start; }
-.flow-note {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3xs);
-  border-top: 1px dashed var(--color-border-dashed);
-  padding-top: var(--space-xs);
-}
-.flow-note--a { grid-column: 1; }
-.flow-note--b { grid-column: 4; }
-.eyebrow {
-  font-size: var(--text-eyebrow);
-  font-weight: 600;
-  letter-spacing: var(--track-eyebrow);
-  text-transform: uppercase;
-  color: var(--color-brand-moon);
-}
-.flow-note span:not(.eyebrow) { font-size: var(--text-sm); color: var(--color-ink-muted); }
-.flow-note a { font-size: var(--text-sm); text-decoration: none; }
 
 /* The one moment the page asks for something: no rule above it, warm block
    behind it. The rhythm changes here and nowhere else. */
@@ -686,10 +661,8 @@ h2.display {
 
 @media (max-width: 700px) {
   .why { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
-  .flow,
-  .flow-notes { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
+  .flow { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
   .flow > li:not(:last-child)::after { display: none; }
-  .flow-note--a, .flow-note--b { grid-column: 1; }
 }
 
 /* A section whose children are a simple vertical stack. The rule and its
@@ -743,3 +716,118 @@ h2.display {
   .guide > li { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
   .guide__shot { max-width: 240px; }
 }
+
+/* ---- The shape catalogue (/howtoread) ------------------------------------
+   The only page on the site that runs three levels deep: section, group of
+   shapes, shape. All three levels are Georgia, stepping 28 / 22 / 19px: the
+   group label sits between the section title above it and the shape title
+   below, so the outline is legible from the type alone. --text-h3 is the
+   fourth display size §4 did not have, added for this ladder. Colour separates
+   the group label from the two Georgia levels around it; the heading level
+   carries the structure either way (DESIGN.md §10). */
+
+h3.group-title {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-h3);
+  line-height: 1.25;
+  letter-spacing: var(--track-tight);
+  color: var(--color-brand-moon);
+}
+
+.shape-title {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-lede);
+  line-height: 1.25;
+  letter-spacing: var(--track-tight);
+  color: var(--color-ink);
+}
+
+/* Numbered prose lists. The numeral is the list's own counter rather than a
+   drawn glyph, and the <ol> carries the order either way (DESIGN.md §10), so
+   the Georgia figure in the action hue is ornament and nothing else. */
+.num-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: item;
+  display: grid;
+  gap: var(--space-sm);
+  max-width: var(--measure-wide);
+}
+.num-list > li {
+  counter-increment: item;
+  display: grid;
+  grid-template-columns: var(--space-md) minmax(0, 1fr);
+  gap: var(--space-xs);
+  align-items: baseline;
+}
+.num-list > li::before {
+  content: counter(item) ".";
+  font-family: var(--font-display);
+  color: var(--color-action);
+}
+.num-list__body { display: flex; flex-direction: column; gap: var(--space-xs); min-width: 0; }
+.num-list__body p { margin: 0; }
+
+/* The sources. Reference apparatus, so it sits at 14px — the floor for a
+   sentence (§4), not below it. Long URLs break rather than widen the column. */
+.sources {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: src;
+  display: grid;
+  gap: var(--space-sm);
+  max-width: var(--measure-wide);
+  font-size: var(--text-sm);
+  color: var(--color-ink-sub);
+}
+.sources > li {
+  counter-increment: src;
+  display: grid;
+  grid-template-columns: var(--space-md) minmax(0, 1fr);
+  gap: var(--space-xs);
+  scroll-margin-top: var(--space-md);
+}
+.sources > li::before {
+  content: counter(src) ".";
+  font-family: var(--font-display);
+  color: var(--color-action);
+}
+.sources a { overflow-wrap: anywhere; }
+
+/* A bracketed number in the middle of a sentence. Undecorated: the whole page
+   is cited, and twelve underlined brackets would read as the argument. */
+.cite { font-size: var(--text-sm); text-decoration: none; }
+
+/* Sections that are the target of an in-page jump. */
+.sec[id] { scroll-margin-top: var(--space-md); }
+
+/* Table of contents. Nested <ul>s carry the heading levels, so the indent is
+   the only thing the CSS has to say about depth — no markers, because seventeen
+   bullets down the left edge would read as an argument rather than a map. The
+   sub-levels step down to UI size so the h2 row stays the one you scan first. */
+.toc { max-width: var(--measure-wide); }
+.toc__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2xs);
+}
+.toc__list--sub {
+  margin-top: var(--space-2xs);
+  padding-left: var(--space-sm);
+  border-left: 1px solid var(--color-rule);
+  font-size: var(--text-ui);
+}
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
+/* Headings that are the target of an in-page jump, alongside .sec[id]. */
+.group-title[id],
+.shape-title[id] { scroll-margin-top: var(--space-md); }

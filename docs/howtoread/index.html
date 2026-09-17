@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>How to read your sleep chart — Chart My Sleep</title>
+<meta name="description" content="What each row, column and green cell means, seven shapes people find in their own sleep charts, what the sleep chart can't show, and when it's worth taking to a doctor.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="How to read your sleep chart — Chart My Sleep">
+<meta property="og:description" content="What each row, column and green cell means, seven shapes people find in their own sleep charts, and when it's worth taking to a doctor.">
+<meta property="og:url" content="https://josh5a.github.io/sleep-data-processor/howtoread/">
+<meta property="og:image" content="https://josh5a.github.io/sleep-data-processor/images/og-howtoread.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="../assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<div class="page">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="shell shell--tool">
+
+    <nav class="masthead" aria-label="Site">
+      <a class="lockup" href="../">
+        <span class="mark" aria-hidden="true">
+          <span class="mark__moon"></span>
+          <span class="mark__bars"><span></span><span></span><span></span></span>
+        </span>
+        <span class="wordmark">Chart My Sleep</span>
+      </a>
+      <a class="tap masthead__aside" href="../chart/">Back to the tool &rarr;</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+
+      <header class="page-head">
+        <h1>How to read your sleep chart</h1>
+        <p class="lede lede--prose">The sleep chart shows timing, the shape of your sleep against
+        the clock.</p>
+        <div class="prose">
+          <p>tl;dr:</p>
+          <ul class="dash-list">
+            <li>
+              <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+              <span>Each row is one night.</span>
+            </li>
+            <li>
+              <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+              <span>Green is time in bed.</span>
+            </li>
+            <li>
+              <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+              <span>The left edge is when you turned in.</span>
+            </li>
+            <li>
+              <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+              <span>The right edge is when you got up.</span>
+            </li>
+            <li>
+              <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+              <span>The number at the end is how long you were there.</span>
+            </li>
+          </ul>
+          <p>Nothing here is medical advice, nor intended to treat or diagnose. If something about
+          your sleep worries you, skip to
+          <a href="#when-to-show-this-to-a-doctor">when to show this to a doctor</a>.</p>
+        </div>
+      </header>
+
+      <section class="sec prose" id="on-this-page">
+        <h2>On this page</h2>
+
+        <nav class="toc" aria-label="On this page">
+          <ul class="toc__list">
+            <li><a href="#what-youre-looking-at">What you&rsquo;re looking at</a></li>
+            <li><a href="#three-things-to-look-at-first">Three things to look at first</a></li>
+            <li>
+              <a href="#shapes-people-find-in-their-own-sleep-charts">Shapes people find in their
+              own sleep charts</a>
+              <ul class="toc__list toc__list--sub">
+                <li>
+                  <a href="#where-your-block-sits">Where your block sits</a>
+                  <ul class="toc__list toc__list--sub">
+                    <li><a href="#one-block-in-the-same-place-most-nights">1. One block, in the same
+                    place most nights</a></li>
+                    <li><a href="#steady-but-earlier-or-later-than-everyone-else">2. Steady, but
+                    earlier or later than everyone else</a></li>
+                    <li><a href="#blocks-in-the-daytime">3. Blocks in the daytime</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#how-much-it-moves">How much it moves</a>
+                  <ul class="toc__list toc__list--sub">
+                    <li><a href="#two-schedules">4. Two schedules</a></li>
+                    <li><a href="#never-settles">5. Never settles</a></li>
+                    <li><a href="#later-every-day">6. Later every day</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#how-long-it-is">How long it is</a>
+                  <ul class="toc__list toc__list--sub">
+                    <li><a href="#short-most-nights">7. Short, most nights</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#what-the-sleep-chart-doesnt-show">What the sleep chart doesn&rsquo;t
+            show</a></li>
+            <li><a href="#what-to-do-with-your-sleep-chart">What to do with your sleep chart</a></li>
+            <li><a href="#when-to-show-this-to-a-doctor">When to show this to a doctor</a></li>
+            <li><a href="#references">References</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section class="sec prose" id="what-youre-looking-at">
+        <h2>What you&rsquo;re looking at</h2>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/legend.png" width="919" height="238"
+              alt="Seven rows of a sleep chart. Each row holds one unbroken run of green starting around 11:30pm and ending around 7:15am, with a partial cell at each end and full cells between.">
+          </div>
+          <figcaption>Seven nights, bed around 11:30pm, up around 7:15am. The partial cells at each
+          end are the part-hours. The example sleep charts on this page are made up &mdash; generated
+          so each shape is clean enough to recognise. They still have the odd night that ignores the
+          pattern, the way any real sleep chart does, and yours will have more of them than these
+          do.</figcaption>
+        </figure>
+
+        <p><strong>A row is a sleep day, 6pm to 5pm.</strong> Not a calendar day. A night that starts
+        at 11pm and ends at 7am sits in the middle of a row in one piece, instead of being cut in
+        half at midnight. This is the least obvious thing about the sleep chart, and it explains most
+        of what looks strange at first.</p>
+
+        <p><strong>A column is an hour on the clock.</strong> 6pm at the far left, midnight in the
+        middle, 5pm at the far right.</p>
+
+        <p><strong>Green means you were in bed.</strong> A full green cell is the whole hour.
+        <span class="data-inline">0.67</span> is about forty minutes of it, which is why the first
+        and last cells of a night are usually partial.</p>
+
+        <p><strong>The number at the end of the row is your total time in bed.</strong></p>
+
+        <p><strong>The Notes column is yours.</strong> It&rsquo;s free text, so type whatever you
+        want into it, and whatever you type stays attached to that night.</p>
+
+        <p><strong>Two green runs in one row is not two sleeps.</strong> Green at both far ends of a
+        row with white in between is the 6pm boundary: one long sleep whose tail and head landed in
+        the same row.</p>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/row-boundary.png" width="919" height="175" loading="lazy"
+              alt="Four rows. In each, green sits in the leftmost cells at 6pm and again in the rightmost cells up to 5pm, with white across the middle of the row.">
+          </div>
+          <figcaption>The row boundary, not a wake-up. One long sleep drawn across the 6pm line, so
+          its tail and its head land in the same row.</figcaption>
+        </figure>
+
+        <p>Sleep Cycle records one sleep a day and isn&rsquo;t built for naps
+        <a class="cite" href="#src-12">[12]</a>, so a daytime sleep usually isn&rsquo;t on the sleep
+        chart at all. If part of your sleep chart looks wrong rather than just surprising,
+        <a href="../notes/">the caveats page</a> covers it.</p>
+      </section>
+
+      <section class="sec prose" id="three-things-to-look-at-first">
+        <h2>Three things to look at first</h2>
+
+        <ol class="num-list">
+          <li>
+            <div class="num-list__body">
+              <p><strong>The left edge</strong> &mdash; when you get in bed. The most changeable
+              thing on the sleep chart, and often the one that moves everything else.</p>
+            </div>
+          </li>
+          <li>
+            <div class="num-list__body">
+              <p><strong>The right edge</strong> &mdash; when you get up. Often set by an alarm, so
+              it can hold steady while the left edge changes based on what you choose.</p>
+            </div>
+          </li>
+          <li>
+            <div class="num-list__body">
+              <p><strong>The total</strong> &mdash; how much. It&rsquo;s third because <em>when</em>
+              is usually the thing that moves <em>how much</em>, rather than the other way
+              round.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p>Those first two are timing. The third is quantity. They&rsquo;re different problems
+        &mdash; &ldquo;I sleep fine, but at 4am&rdquo; and &ldquo;I&rsquo;m in bed nine hours and
+        still wrecked&rdquo; can need completely different approaches.</p>
+      </section>
+
+      <section class="sec prose" id="shapes-people-find-in-their-own-sleep-charts">
+        <h2>Shapes people find in their own sleep charts</h2>
+
+        <p>Seven shapes, grouped by which of those three things they show up in. Most people match
+        one; some match two. The list comes from what has been measured about how people sleep.</p>
+
+        <p>Each one gets the same three lines:</p>
+
+        <ol class="num-list">
+          <li>
+            <div class="num-list__body">
+              <p>What it looks like on the grid</p>
+            </div>
+          </li>
+          <li>
+            <div class="num-list__body">
+              <p>What it usually means</p>
+            </div>
+          </li>
+          <li>
+            <div class="num-list__body">
+              <p>What it doesn&rsquo;t establish</p>
+            </div>
+          </li>
+        </ol>
+
+        <h3 class="group-title" id="where-your-block-sits">Where your block sits</h3>
+
+        <h4 class="shape-title" id="one-block-in-the-same-place-most-nights">1. One block, in the same place most nights</h4>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/1-one-block.png" width="919" height="343" loading="lazy"
+              alt="Twelve rows, each with one run of green. Most begin within about half an hour of 11:15pm. The right-hand ends are much raggeder, landing anywhere between 6am and 8am.">
+          </div>
+          <figcaption>Twelve nights. Bed mostly around 11:15pm, up anywhere between 6am and 8am. A
+          steady left edge with a ragged right edge is the most common version of this
+          shape.</figcaption>
+        </figure>
+
+        <p><strong>On the grid:</strong> one run of green per row, starting and ending at roughly the
+        same hour.</p>
+
+        <p><strong>Usually means:</strong> this is what a sleep chart is supposed to look like, and
+        plenty of people&rsquo;s do. A steady left edge with a ragged right edge is very common.</p>
+
+        <p><strong>Doesn&rsquo;t establish:</strong> whether the ragged right edge matters. The
+        research on regularity scores bedtime and wake time together and gives wake time no exemption
+        <a class="cite" href="#src-3">[3]</a><a class="cite" href="#src-4">[4]</a>.</p>
+
+        <h4 class="shape-title" id="steady-but-earlier-or-later-than-everyone-else">2. Steady, but earlier or later than everyone else</h4>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/2a-steady-late.png" width="919" height="343" loading="lazy"
+              alt="Twelve rows, each with one tidy run of green. Most start near 2:30am and end near 10:15am, covering the small hours and the morning columns.">
+          </div>
+          <figcaption>Twelve nights, bed mostly around 2:30am, up around 10:15am. The block is neat
+          and shifted rather than scattered, which is what separates this shape from number
+          5.</figcaption>
+        </figure>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/2b-steady-early.png" width="919" height="343" loading="lazy"
+              alt="Twelve rows, each with one tidy run of green. Most start near 8:45pm and end near 4:30am, covering the evening and the small hours.">
+          </div>
+          <figcaption>Twelve nights, bed mostly around 8:45pm, up around 4:30am. The same neatness,
+          the opposite direction.</figcaption>
+        </figure>
+
+        <p><strong>On the grid:</strong> the block is tidy and lands in the same place every night.
+        It just isn&rsquo;t where other people&rsquo;s lands.</p>
+
+        <p><strong>Usually means:</strong> you&rsquo;re an early type or a late type, and the spread
+        is wide. Measured across 53,689 Americans, the middle of sleep on free days spans nearly ten
+        hours end to end &mdash; a quarter of people fall before 2:24am, a quarter after 4:15am
+        <a class="cite" href="#src-9">[9]</a>. It also moves with age on a predictable curve, latest
+        at around 18 or 19 and earlier every year after that
+        <a class="cite" href="#src-9">[9]</a>. A nineteen-year-old and their grandmother can both
+        have textbook-healthy sleep charts that look nothing alike.</p>
+
+        <p>There&rsquo;s a point where it stops being a type and starts having a name:</p>
+
+        <ul class="dash-list">
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>Persistently late &mdash; sleep starting somewhere between 1am and 6am, and not
+            movable to fit work or school &mdash; is called <strong>delayed sleep-wake phase
+            disorder</strong>, and it affects around 1% of adults and around 3% of adolescents
+            <a class="cite" href="#src-6">[6]</a>.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>Persistently early &mdash; in bed between 6pm and 9pm, awake between 2am and 5am
+            &mdash; is called <strong>advanced sleep-wake phase disorder</strong>, around 1% of
+            middle-aged adults <a class="cite" href="#src-6">[6]</a>.</span>
+          </li>
+        </ul>
+
+        <p><strong>Doesn&rsquo;t establish:</strong> being a late or an early type is not a disorder.
+        What separates the type from the condition is that the timing can&rsquo;t be moved and that
+        it causes a real problem in the person&rsquo;s life
+        <a class="cite" href="#src-5">[5]</a><a class="cite" href="#src-6">[6]</a>. A delayed phase
+        is also stable and late rather than drifting &mdash; the drifting shape is number 6 below,
+        and the two can be confused <a class="cite" href="#src-5">[5]</a>.</p>
+
+        <h4 class="shape-title" id="blocks-in-the-daytime">3. Blocks in the daytime</h4>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/3-daytime.png" width="919" height="385" loading="lazy"
+              alt="Fourteen rows. The first seven mostly hold a run of green from around 8am to around 3pm; the last seven mostly hold one from around 11pm to around 7am.">
+          </div>
+          <figcaption>Fourteen nights across a rotation: roughly a week of sleeping from 8am, then
+          roughly a week of sleeping from 11pm.</figcaption>
+        </figure>
+
+        <p><strong>On the grid:</strong> the main block sits in the morning or afternoon columns, or
+        alternates between day and night from row to row.</p>
+
+        <p><strong>Usually means:</strong> shift work. Between 20% and 30% of the workforce in
+        industrialised countries works shifts <a class="cite" href="#src-6">[6]</a>, which is more
+        people than every named condition on this page put together.</p>
+
+        <p><strong>Doesn&rsquo;t establish:</strong> the sleep chart can&rsquo;t tell a night nurse
+        from someone whose body clock has come loose. What it does show is whether the pattern is
+        consistent nights or rotating, which is the distinction that matters.</p>
+
+        <h3 class="group-title" id="how-much-it-moves">How much it moves</h3>
+
+        <h4 class="shape-title" id="two-schedules">4. Two schedules</h4>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/4-two-schedules.png" width="919" height="385" loading="lazy"
+              alt="Fourteen rows over two weeks. Ten work nights mostly run from around 11:30pm to around 6:45am. Four free nights, in two pairs, run later and longer — from around 1:45am to around 10am — so the block steps to the right twice.">
+          </div>
+          <figcaption>Two weeks. Work nights mostly around 11:30pm; free nights starting a couple of
+          hours later and running longer. The stripe repeats, which is what makes it a pattern rather
+          than one odd weekend.</figcaption>
+        </figure>
+
+        <p><strong>On the grid:</strong> weekday edges and free-day edges an hour or more apart. It
+        looks like stripes when you scroll fast.</p>
+
+        <p><strong>Usually means:</strong> a work schedule and a body clock that disagree.
+        It&rsquo;s sometimes called social jet lag, and it&rsquo;s by a wide margin the most common
+        shape on this page &mdash; around two-thirds of the working and studying population in
+        industrialised countries run at least an hour of it, and roughly half run two hours or more
+        <a class="cite" href="#src-2">[2]</a>.</p>
+
+        <p>Two versions are worth telling apart: the free-day block <strong>shifted later</strong>,
+        which is a timing problem, and the free-day block simply <strong>longer</strong>, which is
+        catching up and usually runs an extra hour or two on non-work days
+        <a class="cite" href="#src-4">[4]</a>.</p>
+
+        <p>One more thing, because it saves people a fright: a late type held to an early weekday
+        schedule <em>is</em> the social jet lag case
+        <a class="cite" href="#src-2">[2]</a><a class="cite" href="#src-9">[9]</a>. If you match this
+        entry and number 2, that&rsquo;s usually one thing seen from two ends rather than two things
+        wrong with you.</p>
+
+        <p><strong>Doesn&rsquo;t establish:</strong> a gap between your two schedules describes your
+        week. It isn&rsquo;t a verdict on it.</p>
+
+        <h4 class="shape-title" id="never-settles">5. Never settles</h4>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/5-never-settles.png" width="919" height="385" loading="lazy"
+              alt="Fourteen rows. Each holds one run of green, but the starting points are scattered across the whole sleep chart from 7pm to 6am with no centre and no direction.">
+          </div>
+          <figcaption>Fourteen nights with no centre. Scatter, not a trend &mdash; the left edge
+          moves and never comes back to anything.</figcaption>
+        </figure>
+
+        <p><strong>On the grid:</strong> the left edge moves and doesn&rsquo;t come back to anything.
+        Not two clusters. Scatter.</p>
+
+        <p><strong>Usually means:</strong> a chaotic fortnight &mdash; a new baby, a deadline, a
+        move, a bad stretch. Charts have seasons.</p>
+
+        <p><strong>Doesn&rsquo;t establish:</strong> anything beyond a rough stretch, and the fix for
+        most rough stretches isn&rsquo;t medical. One much rarer thing is worth naming here, though,
+        because it has nowhere else to go: no main block at all, sleep broken into three or more
+        short stretches around the clock with none of them dominant. That&rsquo;s <strong>irregular
+        sleep-wake rhythm disorder</strong> <a class="cite" href="#src-6">[6]</a>, and it is badly
+        under-recognised, particularly in care settings <a class="cite" href="#src-11">[11]</a>. If
+        that&rsquo;s what your sleep chart looks like, the last section on this page is the one to
+        read.</p>
+
+        <h4 class="shape-title" id="later-every-day">6. Later every day</h4>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/6-later-every-day.png" width="918" height="532" loading="lazy"
+              alt="Twenty-one rows. The run of green starts around 10pm in the top row and shifts later by about an hour a day, walking steadily rightward past midnight, through the morning columns, and round to the evening again by the last row.">
+          </div>
+          <figcaption>Twenty-one nights. The block starts at 10pm and moves later by about an hour a
+          day on average, walking all the way round the clock. The drift here is drawn at the fast
+          end of the documented range so the shape is unmistakable; a real one can be half this speed
+          <a class="cite" href="#src-6">[6]</a>.</figcaption>
+        </figure>
+
+        <p><strong>On the grid:</strong> the left edge walks steadily to the right, half an hour to
+        an hour a day, and keeps going. Past midnight, into the morning, round the clock and back
+        again.</p>
+
+        <p><strong>Usually means:</strong> <strong>non-24-hour sleep-wake rhythm disorder</strong>,
+        also called a free-running rhythm <a class="cite" href="#src-6">[6]</a>. It&rsquo;s found in
+        more than half of totally blind people; in sighted people it&rsquo;s rare, and nobody knows
+        how rare <a class="cite" href="#src-6">[6]</a>. Important to note, this is what N24 sleep
+        looks like when the person is not trying to keep a schedule but allowed to sleep and wake
+        naturally.</p>
+
+        <p><strong>Doesn&rsquo;t establish:</strong> two weeks of drifting later over a holiday is
+        not this. The defining feature is that it doesn&rsquo;t stop and doesn&rsquo;t reset.</p>
+
+        <h3 class="group-title" id="how-long-it-is">How long it is</h3>
+
+        <h4 class="shape-title" id="short-most-nights">7. Short, most nights</h4>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="../images/example-charts/7-short.png" width="919" height="343" loading="lazy"
+              alt="Twelve rows, each with a short run of green. Most start around 1am and end around 6:15am, and the totals at the end of the rows read between about four and three-quarter and six and a quarter hours.">
+          </div>
+          <figcaption>Twelve nights of roughly five to six hours, most of them starting after
+          midnight. Short because of the left edge rather than the right one.</figcaption>
+        </figure>
+
+        <p><strong>On the grid:</strong> totals consistently under seven hours, wherever the edges
+        sit.</p>
+
+        <p><strong>Usually means:</strong> the most common single thing on this page. 30.5% of US
+        adults report sleeping under seven hours <a class="cite" href="#src-10">[10]</a>, against a
+        target of seven or more set jointly by the American Academy of Sleep Medicine and the Sleep
+        Research Society <a class="cite" href="#src-8">[8]</a>. Read it against the left edge, because
+        short-because-you-went-to-bed-at-3am and short-because-you-woke-at-4am are different problems
+        with different answers.</p>
+
+        <p><strong>Doesn&rsquo;t establish:</strong> how much sleep you need. The consensus statement
+        is explicit that individual need varies <a class="cite" href="#src-8">[8]</a>. A run of
+        six-and-a-half-hour nights on someone who feels fine is not the same finding as the identical
+        sleep chart on someone who doesn&rsquo;t.</p>
+      </section>
+
+      <section class="sec prose" id="what-the-sleep-chart-doesnt-show">
+        <h2>What the sleep chart doesn&rsquo;t show</h2>
+
+        <p>These bars are the time you spent in bed with Sleep Cycle recording, not the time you were
+        asleep. Sleep Cycle tracks those separately and they&rsquo;re never the same number, because
+        falling asleep takes a while and everyone is awake for part of the night without remembering
+        it <a class="cite" href="#src-1">[1]</a>. Your own gap is in Sleep Cycle, next to each
+        night.</p>
+
+        <p>So the sleep chart is honest about <em>when</em> you were lying down and roughly <em>how
+        long</em>, and it says nothing at all about how well it went. It won&rsquo;t show you waking
+        at 3am for twenty minutes, or snoring, apnea, restlessness, or why you feel the way you do in
+        the morning. Naps aren&rsquo;t on it either, since Sleep Cycle records one sleep a day
+        <a class="cite" href="#src-12">[12]</a>.</p>
+
+        <p>What&rsquo;s left is the schedule, which is the part Chart My Sleep was built to show
+        you.</p>
+
+        <p>If part of your sleep chart looks wrong rather than just surprising, check
+        <a href="../notes/">the caveats page</a>.</p>
+      </section>
+
+      <section class="sec prose" id="what-to-do-with-your-sleep-chart">
+        <h2>What to do with your sleep chart</h2>
+
+        <ol class="num-list">
+          <li>
+            <div class="num-list__body">
+              <p><strong>Look at it regularly.</strong> A glance at the recent rows can be enough to
+              steer your week. It&rsquo;s the easiest move here.</p>
+            </div>
+          </li>
+          <li>
+            <div class="num-list__body">
+              <p><strong>Use it as a &ldquo;before&rdquo; reference.</strong> Otherwise it can be
+              difficult to tell what, if any, impact any changes you make have on your sleep
+              schedule.</p>
+            </div>
+          </li>
+          <li>
+            <div class="num-list__body">
+              <p><strong>Change one thing, then update your sleep chart in two weeks.</strong> One
+              variable, one edge, usually the left one: bedtime by half an hour, morning light, when
+              you last eat, when the screens go off. Two weeks isn&rsquo;t arbitrary either &mdash;
+              sleep clinics generally want at least one to two weeks of diary or actigraphy before
+              they&rsquo;ll read a pattern <a class="cite" href="#src-7">[7]</a>.</p>
+              <p>Worth being plain about that list: those are things to try and then watch on your
+              own sleep chart, not treatments. Talk to a doctor for individualized advice. The
+              clinical guideline for delayed sleep-wake phase in adults gives <strong>no
+              recommendation</strong> for bright light after waking as a treatment on its own,
+              because the evidence isn&rsquo;t there yet <a class="cite" href="#src-7">[7]</a>.
+              Anything involving melatonin is a conversation with a doctor rather than something to
+              take from a sleep chart-reading page.</p>
+            </div>
+          </li>
+          <li>
+            <div class="num-list__body">
+              <p><strong>Write down what you changed, in the Notes column.</strong> This way you can
+              keep track of what happened and what you were doing over time.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p>Making a new sleep chart takes about two minutes. Because Sleep Cycle exports your whole
+        history every time, you paste over the top and the new rows are just there. So it&rsquo;s
+        easy to do as often as you want.</p>
+      </section>
+
+      <section class="sec prose" id="when-to-show-this-to-a-doctor">
+        <h2>When to show this to a doctor</h2>
+
+        <p>These are the four situations where the sleep chart is worth taking to a medical
+        professional:</p>
+
+        <ul class="dash-list">
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>The shape doesn&rsquo;t change no matter what you do to it.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>The totals are consistently very short, or very long, over months. Seven hours or
+            more is the adult target from the American Academy of Sleep Medicine and the Sleep
+            Research Society, who say in the same breath that individual need varies
+            <a class="cite" href="#src-8">[8]</a>. It&rsquo;s a reference point, never a
+            verdict.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>You&rsquo;re getting the hours and still feel wrecked. That gap is exactly what the
+            sleep chart can&rsquo;t see, which is a real reason to ask someone who can.</span>
+          </li>
+          <li>
+            <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
+            <span>The schedule is making your life unworkable &mdash; the job you can&rsquo;t take,
+            the mornings you can&rsquo;t promise.</span>
+          </li>
+        </ul>
+
+        <p>Take the sleep chart to your doctor&rsquo;s appointment. Check if you can email it ahead
+        of time, and export a PDF out of the Google Sheet. A few weeks (or months) of your sleep in
+        one picture makes for a very different conversation than trying to describe it from memory.
+        Patient reports are not considered as reliable as an artifact of objective
+        measurements.</p>
+
+        <p>If you&rsquo;ve raised this before and been told nothing&rsquo;s wrong, a sleep chart can
+        be a good way to reopen the conversation. Circadian problems are the ones most likely to get
+        missed: by one estimate around one in ten people diagnosed with long-term insomnia would be
+        better described as having a delayed sleep phase, and standard practice includes no test of
+        body-clock timing at all <a class="cite" href="#src-11">[11]</a>. Being told there&rsquo;s
+        nothing wrong isn&rsquo;t the same as there being nothing wrong. It&rsquo;s also not proof
+        that there is. What it means is that the right questions may not have been asked yet, and a
+        sleep chart can be a good way to start asking them.</p>
+
+        <p>I went most of my life without knowing there was a name for the way I sleep, and when I
+        finally found it, it wasn&rsquo;t from a doctor &mdash; it was a website I landed on by
+        accident.</p>
+
+        <p>And if something is genuinely wrong, the sleep chart is just the starting point to getting
+        the help you need from a sleep doctor. What the sleep chart does is help you work out whether
+        that&rsquo;s a call worth making. For some people it turns out to be the best one they ever
+        made.</p>
+      </section>
+
+      <section class="sec prose" id="references">
+        <h2>References</h2>
+
+        <ol class="sources">
+          <li id="src-1">
+            <span><strong>Time asleep is always less than time in bed, and the gap widens with
+            age.</strong> Boulos MI et al., <em>Normal polysomnography parameters in healthy adults:
+            a systematic review and meta-analysis</em>, Lancet Respiratory Medicine 2019 &mdash; 169
+            studies, 5,273 healthy adults.
+            <a href="https://pubmed.ncbi.nlm.nih.gov/31006560/">pubmed.ncbi.nlm.nih.gov/31006560</a></span>
+          </li>
+          <li id="src-2">
+            <span><strong>Social jet lag, and how common it is.</strong> Caliandro R et al.,
+            <em>Social Jetlag and Related Risks for Human Health: A Timely Review</em>, Nutrients
+            2021. Around two-thirds of the studying and working population in industrialised
+            countries run at least an hour; roughly half run two or more.
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8707256/">pmc.ncbi.nlm.nih.gov/articles/PMC8707256</a></span>
+          </li>
+          <li id="src-3">
+            <span><strong>Regularity is scored on bedtime and wake time together.</strong> Windred DP
+            et al., <em>Sleep regularity is a stronger predictor of mortality risk than sleep
+            duration</em>, SLEEP 2024 &mdash; UK Biobank, 60,977 people, seven days of accelerometry
+            each.
+            <a href="https://academic.oup.com/sleep/article/47/1/zsad253/7280269">academic.oup.com/sleep/article/47/1/zsad253</a></span>
+          </li>
+          <li id="src-4">
+            <span><strong>Consistent timing, with no carve-out for wake time, and the usual size of
+            weekend catch-up.</strong> National Sleep Foundation sleep timing and variability panel,
+            <em>The importance of sleep regularity: a consensus statement</em>, Sleep Health 2023.
+            <a href="https://www.thensf.org/sleep-schedules-sleep-timing-guideline/">thensf.org/sleep-schedules-sleep-timing-guideline</a></span>
+          </li>
+          <li id="src-5">
+            <span><strong>A delayed phase is stable and late rather than drifting, and the timing
+            can&rsquo;t be moved voluntarily.</strong> Nesbitt AD, <em>Delayed sleep-wake phase
+            disorder</em>, Journal of Thoracic Disease 2018.
+            <a href="https://jtd.amegroups.org/article/view/18434/html">jtd.amegroups.org/article/view/18434</a></span>
+          </li>
+          <li id="src-6">
+            <span><strong>The condition names, what they mean, and how common each one is.</strong>
+            American Academy of Sleep Medicine, <em>Circadian Rhythm Sleep Disorders</em> patient
+            fact sheet, with ICSD-3-TR criteria.
+            <a href="https://aasm.org/resources/factsheets/crsd.pdf">aasm.org/resources/factsheets/crsd.pdf</a></span>
+          </li>
+          <li id="src-7">
+            <span><strong>What is and isn&rsquo;t recommended as treatment, and how many days of
+            records a clinic wants.</strong> Auger RR et al., <em>Clinical Practice Guideline for the
+            Treatment of Intrinsic Circadian Rhythm Sleep-Wake Disorders</em>, Journal of Clinical
+            Sleep Medicine 2015. This is the source for the bright-light sentence: the guideline
+            gives no recommendation for it as a standalone treatment in adults, on insufficient
+            evidence.
+            <a href="https://aasm.org/resources/clinicalguidelines/crswd-intrinsic.pdf">aasm.org/resources/clinicalguidelines/crswd-intrinsic.pdf</a></span>
+          </li>
+          <li id="src-8">
+            <span><strong>Seven hours or more for adults, with individual variation
+            acknowledged.</strong> Watson NF et al., <em>Recommended Amount of Sleep for a Healthy
+            Adult: A Joint Consensus Statement of the American Academy of Sleep Medicine and Sleep
+            Research Society</em>, SLEEP 2015.
+            <a href="https://aasm.org/aasm-and-srs-publish-new-sleep-duration-consensus-statement/">aasm.org/aasm-and-srs-publish-new-sleep-duration-consensus-statement</a></span>
+          </li>
+          <li id="src-9">
+            <span><strong>The ten-hour spread in sleep timing, and how it shifts with age.</strong>
+            Fischer D, Lombardi DA, Marucci-Wellman H, Roenneberg T, <em>Chronotypes in the U.S.
+            &mdash; Influence of age and sex</em>, PLoS ONE 2017 &mdash; American Time Use Survey,
+            53,689 people.
+            <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0178782">journals.plos.org/plosone/article?id=10.1371/journal.pone.0178782</a></span>
+          </li>
+          <li id="src-10">
+            <span><strong>30.5% of US adults sleeping under seven hours.</strong> Ng AE,
+            Adjaye-Gbewonyo D, <em>Short Sleep Duration and Sleep Difficulties Among Adults: United
+            States, 2024</em>, NCHS Data Brief no. 559.
+            <a href="https://www.cdc.gov/nchs/products/databriefs/db559.htm">cdc.gov/nchs/products/databriefs/db559.htm</a></span>
+          </li>
+          <li id="src-11">
+            <span><strong>Circadian conditions being missed, and the one-in-ten insomnia
+            estimate.</strong> Baron KG, Abbott SM, Auger RR et al., <em>Circadian rhythm sleep&ndash;wake
+            disorders: gaps and opportunities</em>, workshop report of the Sleep Research Society and
+            the Society for Research on Biological Rhythms, SLEEP 2021. Also the source for how badly
+            irregular sleep-wake rhythm disorder is missed in institutional settings.
+            <a href="https://academic.oup.com/sleep/article/44/5/zsaa281/6134797">academic.oup.com/sleep/article/44/5/zsaa281</a></span>
+          </li>
+          <li id="src-12">
+            <span><strong>Sleep Cycle records one sleep a day and isn&rsquo;t built for
+            naps.</strong> From their own support documentation, <em>Can I track my napping with
+            Sleep Cycle?</em> &mdash; a second sleep in the same day can overwrite the full-night
+            record.
+            <a href="https://support.sleepcycle.com/hc/en-us/articles/10978159074972-Can-I-track-my-napping-with-Sleep-Cycle">support.sleepcycle.com/hc/en-us/articles/10978159074972</a></span>
+          </li>
+        </ol>
+
+        <p class="more"><a class="tap" href="../chart/">Back to the tool &rarr;</a></p>
+      </section>
+
+    </main>
+
+    <footer>
+      <a class="tap" href="../track/">Tracking your sleep</a>
+      <a class="tap" href="../export/">Exporting from Sleep Cycle</a>
+      <span aria-current="page">How to read your chart</span>
+      <a class="tap" href="../notes/">About the numbers</a>
+      <a class="tap" href="../privacy/">Privacy</a>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

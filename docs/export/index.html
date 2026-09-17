@@ -14,22 +14,15 @@
 
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 
-<link rel="preload" href="../fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="../fonts.css">
-<link rel="stylesheet" href="../tokens.css">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
-<!-- L9. Reference material, not onboarding (DESIGN.md §9): the person reading
-     this is stuck, or has done it before and forgotten where the menu was.
-     Screenshots are real captures of the app, each cropped to the part that
-     carries its step and marked with one red oval. The copy names the thing to
-     tap as well as circling it — the oval is never the only carrier of the
-     meaning (§10). Sources, oval coordinates and crops: the one table at the top
-     of dev/annotate-export-shots.sh; re-run it after any re-capture. -->
 
 <div class="page">
   <a class="skip" href="#main">Skip to main content</a>
@@ -51,9 +44,9 @@
 
       <header class="page-head">
         <h1>Exporting from Sleep Cycle</h1>
-        <p class="lede lede--prose">The export is five taps deep, in a menu nobody finds by
-        accident. Here is the path, with a picture of each screen.</p>
-        <p class="subtitle">About a minute. The red ring on each picture is the thing to tap.</p>
+        <p class="lede lede--prose">The export is five taps deep, in a menu you have to know where to find. Here is the path on iOS, with a picture of each screen. Android should be similar.</p>
+        <p class="subtitle">Time: about a minute. The red ring on each picture is the thing to tap.</p>
+        <p class="subtitle">You can also view Sleep Cycle's instructions <a class="tap" href="https://support.sleepcycle.com/hc/en-us/articles/12221835792796-I-d-like-to-export-my-data-from-Sleep-Cycle" rel="noreferrer">here</a>.</p>
       </header>
 
       <section class="sec">
@@ -74,9 +67,9 @@
 
           <li>
             <div class="guide__body">
-              <h2 class="guide__title">Scroll to the bottom and tap &ldquo;&bull;&bull;&bull; More&rdquo;</h2>
+              <h2 class="guide__title">Scroll down and tap &ldquo;&bull;&bull;&bull; More&rdquo;</h2>
               <p>Profile opens on your totals &mdash; nights recorded, average time, backup. Keep
-              scrolling past the Settings list. &ldquo;More&rdquo; is the last row, under Weekly
+              scrolling until ou reach the &ldquo;More&rdquo; row, under Weekly
               report.</p>
             </div>
             <figure class="guide__shot">
@@ -125,18 +118,17 @@
                 <li>
                   <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
                   <span><strong>AirDrop</strong>, if you are going to finish on a Mac. The file lands
-                  in Downloads. This is the one to pick: the last step of all this happens in Google
-                  Sheets, which wants a computer.</span>
+                  in Downloads, then you can <a href="../chart/">format it</a> with Chart My Sleep.</span>
                 </li>
                 <li>
                   <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
                   <span><strong>Copy</strong>, which puts the contents of the file on your clipboard.
-                  Paste it straight into the box on the tool. If your Mac and your phone are signed in
-                  to the same Apple account, a copy on the phone can be pasted on the Mac.</span>
+                  Paste it straight into the box <a href="../chart/">here</a> to process it. If your Mac and your phone are signed in
+                  to the same Apple account, a copy from the phone can be pasted on the Mac.</span>
                 </li>
               </ul>
               <p class="meta">Every export is your whole history, not just the nights since last
-              time. That is why the tool tells you to paste over the top of the old rows rather than
+              time. That is why our tool tells you to paste over the top of the old rows rather than
               underneath them.</p>
             </div>
             <figure class="guide__shot">
@@ -151,16 +143,18 @@
       </section>
 
       <section class="sec prose">
-        <h2>That is the file</h2>
-        <p>Drop it into the box on the tool, or paste the text in. The rows come back formatted for
-        the chart template, and nothing about the file leaves your own device.</p>
+        <h2>Congrats, you've exported your sleep data</h2>
+        <p>Drop it into the box on <a href="../chart/">the tool</a>, or paste the text in. The rows come back formatted for
+        the chart template, and nothing in the file leaves your own device.</p>
         <p class="more"><a class="tap" href="../chart/">Back to the tool &rarr;</a></p>
       </section>
 
     </main>
 
     <footer>
+      <a class="tap" href="../track/">Tracking your sleep</a>
       <span aria-current="page">Exporting from Sleep Cycle</span>
+      <a class="tap" href="../howtoread/">How to read your chart</a>
       <a class="tap" href="../notes/">About the numbers</a>
       <a class="tap" href="../privacy/">Privacy</a>
     </footer>

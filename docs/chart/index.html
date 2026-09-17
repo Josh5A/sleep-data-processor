@@ -20,12 +20,12 @@
      the page and a swap-in after first paint is the most visible reflow here.
      crossorigin is required even same-origin, or the preload doesn't match the
      font request and the file is fetched twice. -->
-<link rel="preload" href="../fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="../fonts.css">
-<link rel="stylesheet" href="../tokens.css">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -53,17 +53,14 @@
       </header>
 
       <!-- Position strip. Steps 1 and 2 are places on this site you may still
-           need; 3 is where you are; 4 is not a link, because the template has
-           its own section below with the explanation next to it. -->
+           need; 3 is where you are; 4 jumps to the template section below,
+           which carries the explanation next to the link itself. -->
       <nav class="steps" aria-label="Where you are">
         <ol>
-          <!-- Step 1 is not a link: /track was decided against (DESIGN.md §9, and
-               the someday list in dev/last-20-plan.md §8). The "not tracking yet?"
-               note on / carries it instead. A pill that pointed here 404'd. -->
-          <li><span class="pill">1 &middot; Track</span></li>
+          <li><a class="pill" href="../track/">1 &middot; Track</a></li>
           <li><a class="pill" href="../export/">2 &middot; Export</a></li>
           <li><span class="pill" aria-current="step">3 &middot; Format &mdash; you are here</span></li>
-          <li><span class="pill">4 &middot; Paste into the template</span></li>
+          <li><a class="pill" href="#paste-into-template">4 &middot; Paste into the template</a></li>
         </ol>
       </nav>
 
@@ -79,10 +76,6 @@
           <button type="button" class="btn btn--secondary" id="browse">Choose file</button>
           <span class="meta" id="file-label">CSV or text</span>
         </div>
-
-        <!-- L7. A visitor who arrived from a shared link has no export in hand;
-             without this, /chart is a dead page for them. -->
-        <button type="button" class="demo-link" id="demo">See it with example data &rarr;</button>
 
         <p class="hint">
           <span class="hint__dot" aria-hidden="true">&bull;</span>
@@ -116,35 +109,14 @@
         </div>
       </section>
 
-      <!-- Caveats sit between the output and the template link, not after it.
-           DESIGN.md §8.6: at the moment they matter, before the user goes to
-           look at their chart. The template link opens in a new tab, so
-           anything below it is read by nobody on their first pass. -->
-      <section class="notes">
-        <h2 class="section-title">Before you read your chart</h2>
-        <details>
-          <summary>On two nights a year the clocks change and the columns won&rsquo;t add up.</summary>
-          <p>Twice a year a day isn&rsquo;t 24 hours long. On the night the clocks go back, 1am happens
-          twice — both hours land in the single 1am column, so the columns come up an hour short. On
-          the night they go forward, 2am never happens at all. Either way the total at the end of the
-          row is your real sleep time, so it&rsquo;s the columns that are off, not the total.</p>
-        </details>
-        <details>
-          <summary>These are hours in bed, not hours asleep.</summary>
-          <p>The hours come from what Sleep Cycle recorded as time in bed, which runs a little longer
-          than the time you were actually asleep.</p>
-        </details>
-        <a href="../notes/">All the caveats, in full &rarr;</a>
-      </section>
-
-      <section class="handoff">
+      <section class="handoff" id="paste-into-template">
         <h2 class="section-title">Paste it into the template</h2>
         <!-- L2 and L3. The first-time path and the update path are different
              instructions, and the returning user pastes far more often than
              the first-timer does. L3: say what should happen, so a user who
              pastes and sees nothing knows it went wrong. -->
         <ol class="handoff__list">
-          <li><strong>First time:</strong> make your own copy of the template, click cell A2, and
+          <li><strong>First time:</strong> make your own copy of the template (template link below), click cell A2, and
           paste. The chart appears beside the rows within a second or two.</li>
           <li><strong>Every time after:</strong> Sleep Cycle exports your whole history every time,
           so click A2 and paste over the top again. It replaces what&rsquo;s there; it doesn&rsquo;t
@@ -163,10 +135,36 @@
           target="_blank" rel="noreferrer">Make your own copy of the template &rarr;</a>
       </section>
 
+      <!-- Caveats sit after the template step. DESIGN.md §Interactions 6:
+           they never stand between the user and the next action. The template
+           link opens in a new tab, so this is read on the way back, once the
+           user has a chart in front of them to check the caveats against. -->
+      <section class="notes">
+        <h2 class="section-title">Before you read your chart</h2>
+        <details>
+          <summary>On two nights a year the clocks change and the columns won&rsquo;t add up.</summary>
+          <p>Twice a year a day isn&rsquo;t 24 hours long. On the night the clocks go back, 1am happens
+          twice — both hours land in the single 1am column, so the columns come up an hour short. On
+          the night they go forward, 2am never happens at all. Either way the total at the end of the
+          row is your real sleep time, so it&rsquo;s the columns that are off, not the total.</p>
+        </details>
+        <details>
+          <summary>These are hours in bed, not hours asleep.</summary>
+          <p>The hours come from what Sleep Cycle recorded as time in bed, which runs a little longer
+          than the time you were actually asleep.</p>
+        </details>
+        <!-- Read on the way back from Sheets, with a chart on screen: the shapes
+             first (the thing they came back for), the caveats second. -->
+        <a href="../howtoread/">How to read your sleep chart &rarr;</a>
+        <a href="../notes/">All the caveats, in full &rarr;</a>
+      </section>
+
     </main>
 
     <footer>
+      <a class="tap" href="../track/">Tracking your sleep</a>
       <a class="tap" href="../export/">Exporting from Sleep Cycle</a>
+      <a class="tap" href="../howtoread/">How to read your chart</a>
       <a class="tap" href="../notes/">About the numbers</a>
       <a class="tap" href="../privacy/">Privacy</a>
     </footer>
@@ -177,8 +175,7 @@
 <script type="module">
 // Relative path, not absolute: the site is served from /sleep-data-processor/,
 // not the domain root, so /sleep-data-processor.js would 404 (B5.4).
-import { processSleepData } from '../sleep-data-processor.js';
-import { DEMO_CSV, DEMO_FILENAME } from '../demo-data.js';
+import { processSleepData } from '../assets/js/sleep-data-processor.js';
 
 const $ = (id) => document.getElementById(id);
 const input = $('input'), output = $('output'), status = $('status');
@@ -292,13 +289,6 @@ input.addEventListener('drop', (e) => {
 
 $('browse').addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', () => readFile(fileInput.files && fileInput.files[0]));
-
-$('demo').addEventListener('click', () => {
-    input.value = DEMO_CSV;
-    convert(DEMO_CSV, DEMO_FILENAME);
-    input.focus();
-    input.setSelectionRange(0, 0);
-});
 
 output.addEventListener('click', () => output.select());
 

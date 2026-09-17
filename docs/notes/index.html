@@ -14,12 +14,12 @@
 
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 
-<link rel="preload" href="../fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/vollkorn-400.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="../fonts.css">
-<link rel="stylesheet" href="../tokens.css">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -47,11 +47,15 @@
     <main id="main" tabindex="-1">
 
       <header class="page-head">
-        <h1>About the numbers</h1>
+        <h1>About the sleep chart numbers</h1>
         <p class="lede lede--prose">A few places where the chart and your memory of the night
         won&rsquo;t quite agree &mdash; and why each one is on purpose.</p>
         <p class="subtitle">The first two are the ones you&rsquo;ll actually notice. The rest are
         here so you can check.</p>
+        <!-- The two pages are easy to confuse. This one is why the chart disagrees
+             with your memory; the other is what the shapes in it mean. -->
+        <p class="subtitle">After what the shapes <em>mean</em>? That&rsquo;s
+        <a class="tap" href="../howtoread/">How to read your sleep chart &rarr;</a></p>
       </header>
 
       <section class="sec prose">
@@ -126,13 +130,12 @@
         <ul class="dash-list">
           <li>
             <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
-            <span>Sleep Cycle exports work. Other sleep apps write their files differently and
-            won&rsquo;t be recognised.</span>
+            <span>Chart My Sleep works with Sleep Cycle exports. Other sleep apps write their files differently and may not be recognised.</span>
           </li>
           <li>
             <span class="dash-list__mark" aria-hidden="true">&mdash;</span>
             <span>Only the start and end of each sleep are used. Sleep quality, heart rate, snoring,
-            steps, mood and the weather are all left alone.</span>
+            steps, mood and the weather are all left out.</span>
           </li>
         </ul>
         <p class="more"><a class="tap" href="../export/">How to export from Sleep Cycle &rarr;</a></p>
@@ -141,7 +144,9 @@
     </main>
 
     <footer>
+      <a class="tap" href="../track/">Tracking your sleep</a>
       <a class="tap" href="../export/">Exporting from Sleep Cycle</a>
+      <a class="tap" href="../howtoread/">How to read your chart</a>
       <span aria-current="page">About the numbers</span>
       <a class="tap" href="../privacy/">Privacy</a>
     </footer>
